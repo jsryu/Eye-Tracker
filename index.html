@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8">
+        <title>Blick Login Page</title>
+
+		<link type="text/css" rel="stylesheet" href="css/index.css" />
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+    </head>
+    <body>
+    	
+    	<div id="mainArea">
+    		<div id="backgroundBlur"></div>
+    		
+    		<div id="headerArea">
+	    		<span id="headerTitleBlick">
+	    			Blick
+	    		</span>
+	    	</div>
+	    	
+	    	<div id="bodyArea">
+	    		<div id="loginBox">
+	    			<div id="loginBoxHead">
+	    				<img id="loginBoxLogo" src="media/img_logo.png" alt="logo" />
+	    				<div id="loginBoxDescription">
+	    					Blick Login
+	    				</div>
+	    			</div>
+	    			<div id="loginBoxBody">
+		    			<input type="text" id="loginBoxID" placeholder="Blick ID">
+		    			<input type="password" id="loginBoxPW" placeholder="Password">
+		    			<button id="loginBoxEnter"></button>
+		    			<div id="loginBoxKeepLogin">
+			            	<div id="loginBoxKeepLoginCheckBox">
+			            		<div id="loginBoxKeepLoginCheckImg" class="loginCheckImgUnchecked"></div>
+			            	</div>
+			            	<div id="loginBoxKeepLoginDesc">Auto login</div>
+			            </div>    				
+	    			</div>
+	    		</div>
+	    		
+	    		<div id="mainPageArea">
+	    			<div id="mainPageHeaderTap">
+	    				<div id="mainPageHeaderMyLibrary" class="mainPageHeaders">My Library</div>
+	    				<div id="mainPageHeaderStore" class="mainPageHeaders">Store</div>
+	    				<div id="mainPageHeaderHWPurchase" class="mainPageHeaders">HW Purchase</div>
+	    				<div id="mainPageHeaderSettings">Settings</div>
+	    			</div>
+	    			<div id="mainPageContentsArea">
+	    				<div id="mainPageContentsMyLibrary" class="mainPageContents">
+	    					<div class="mainPageContentsItems">
+	    						<img class="mainPageContentsItemIcon" src="media/img_game_logo1.png" alt="logo" />
+	    						<div class="mainPageContentsItemTitle">Library Title1</div>
+	    					</div>
+	    					<div class="mainPageContentsItems">
+	    						<img class="mainPageContentsItemIcon" src="media/img_game_logo2.png" alt="logo" />
+	    						<div class="mainPageContentsItemTitle">Library Title2</div>
+	    					</div>
+	    					<div class="mainPageContentsItems">
+	    						<img class="mainPageContentsItemIcon" src="media/img_game_logo1.png" alt="logo" />
+	    						<div class="mainPageContentsItemTitle">Library Title3</div>
+	    					</div>
+	    				</div>
+	    				
+	    				<div id="mainPageContentsStore" class="mainPageContents">
+	    					<div class="mainPageContentsItems">
+	    						<img class="mainPageContentsItemIcon" src="media/img_game_logo1.png" alt="logo" />
+	    						<div class="mainPageContentsItemTitle">Store Title1</div>
+	    					</div>
+	    					<div class="mainPageContentsItems">
+	    						<img class="mainPageContentsItemIcon" src="media/img_game_logo2.png" alt="logo" />
+	    						<div class="mainPageContentsItemTitle">Store Title2</div>
+	    					</div>
+	    				</div>
+	    				
+	    				
+	    				<div id="mainPageContentsHWPurchase" class="mainPageContents">
+	    					
+	    				</div>
+	    			</div>
+	    		</div>
+	    		
+	    		<!-- 경필 -->
+	    		<!-- 패스워드 입력 받는 곳 -->
+                <div id="validPwBox">
+                    <div id="validPwBoxHead">
+                        <img id="validPwBoxLogo" src="media/img_logo.png" alt="logo" />
+                        <div id="validPwBoxDescription">비밀번호를 입력하세요</div>
+                    </div>
+                    <div id="validPwBoxBody">
+                        <h2 id="pw">PW:</h2> <input type="password" id="validPassword" placeholder="password">
+                        <button id="validBoxEnter">Next</button>
+                    </div>
+                </div>
+
+                <!-- 개인정보 수정하는 곳 -->
+                <div id="infoSettingBox">
+                    <div id="infoSettingBoxHead">
+                        <div id="infoSettingDescription">정보를 수정하세요</div>
+                    </div>
+                    <div id="infoSettingBoxBody">
+                        <h2 class="settingText" id="memberId">ID:</h2><input type="text" class="settingTextBox" id="memberIdBox" disabled>
+                        <h2 class="settingText">PW:</h2><input type="password" class="settingTextBox">
+                        <h2 class="settingText">Address</h2><input type="text" class="settingTextBox">
+                        <h2 class="settingText">E-mail</h2><input type="text" class="settingTextBox">
+                    </div>
+                </div>
+                <!-- 경필 -->
+                
+                
+                <!-- 경미 -->
+		    	<div id="descriptionBox">
+		    		<div id="hwImage"></div>
+			    	<div id="hwInfo">
+			    		<div id="hwDescription">
+			    			Name : <br>
+			    			Price : <br>
+			    			Description : <br>
+			    		</div>
+			    		<div id="hwPurchaseButton">
+			    			<a>Purchase ☞</a>
+			    		</div>
+			    	</div>
+			    </div>
+		
+				<div id="paymentBox">
+					<div id="paymentTitle">Payment
+					</div>
+					<div id="paymentInfo">
+						<input type="text" name="email" class="payinfo" placeholder="Email"><br>
+						<input type="text" name="cardNum" class="payinfo" placeholder="Card Number"><br>
+						<input type="text" name="date" class="payinfo" size="10" placeholder="MM/DD"><input type="text" name="CVC" class="payinfo" size="10" placeholder="CVC">
+					</div>
+					<div id="paymentCheckOut">
+							<button id="payCheckOut">Check Out $ 1.99</button>
+					</div>
+				</div>
+                <!-- 경미 -->
+	    	</div>
+	    	
+	    	<div id="footerArea">
+	    		<span id="footerPrivacy">
+	    			Privacy
+	    		</span>
+	    		<span id="footerCopyright">
+	    			Copyright @ 2014 Confidence
+	    		</span>
+	    	</div>
+    	</div>
+
+		<script>
+	    	init();
+	    </script>
+    </body>
+    
+</html>

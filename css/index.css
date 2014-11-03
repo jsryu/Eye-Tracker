@@ -1,0 +1,353 @@
+@charset "utf-8";
+
+html,body {
+    background-color: #FFF;
+    color: #000;
+    font-family: Times New Roman, helvetica, arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    font-size: 9pt;
+}
+
+a {
+	color: #3B5998;
+	cursor: pointer;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+
+button::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner {
+    border: none;
+}
+button {
+	border: none;
+	cursor: pointer;
+}
+button:focus {
+	outline: none;
+    border: none;
+    border-color: transparent;
+}
+
+.hide {
+    display: none;
+}
+.display_inline {
+	display: inline-block;
+}
+
+
+#backgroundBlur{
+	position: absolute; width: 100%; height: 100%;
+	background-color: #005790; opacity: 0.4;
+}
+
+#mainArea{
+	position: absolute; width: 100%; height: 100%;
+	background: url(../media/img_bg.png) repeat;
+}
+
+#headerArea{
+	position: relative; float: left; width: 100%; height: 5%;
+	color: #FFFFFF; font-size: 20px; z-index: 1;
+}
+
+#bodyArea{
+	position: relative; float: left; width: 100%; height: 90%;
+	z-index: 1;
+}
+
+#footerArea{
+	position: relative; float: right; height: 5%;
+	color: #FFFFFF; font-size: 20px; z-index: 1;
+}
+
+#headerTitleBlick{
+	position: relative; float: left; padding: 5px 10px; font-size: 25px;
+}
+/*#headerSetting{
+	position: relative; float: right; padding: 5px 10px; cursor: pointer;
+}*/
+
+#loginBox{
+	position: relative; margin: 10% auto;
+	width: 400px; height: 400px; border-radius: 40px;
+	background-color: #FFFFFF; display: none;
+}
+
+#loginBoxHead{
+	position: relative; float: left; width: 100%; height: 50%;
+}
+#loginBoxLogo{
+	position: relative; width: 120px; height: 120px; margin: 20px 143px 0px;
+}
+#loginBoxDescription{
+	position: relative; float: left; width: 100%; height: 50px; text-align: center;
+	font-size: 40px; color: #003756;
+}
+
+#loginBoxBody{
+	position: relative; float: left; width: 100%; height: 50%;
+}
+#loginBoxID{
+	position: relative; float: left; width: 85%; height: 30px; margin: 15px 30px;
+	border: none; font-size: 20px;
+}
+#loginBoxPW{
+	position: relative; float: left; width: 85%; height: 30px; margin: 15px 30px;
+	border: none; font-size: 20px;
+}
+#loginBoxEnter{
+	background: url(../media/btn_login.png) no-repeat;
+	position: absolute; width: 30px; height: 30px; top: 78px; left: 340px;
+}
+#loginBoxEnter:hover{
+	background: url(../media/btn_login_hover.png) no-repeat;
+}
+#loginBoxKeepLogin{
+	position: relative; float: left; width: 100%; height: 40%; margin: auto;
+}
+#loginBoxKeepLoginCheckBox{
+	background: url(../media/img_checkbox.png) no-repeat;
+	position: absolute; width: 24px; height: 24px; top: 30px; left: 135px; cursor: pointer;
+}
+#loginBoxKeepLoginCheckImg{
+	position: absolute; width: 30px; height: 24px; top: -4px; left: -2px; cursor: pointer;
+}
+.loginCheckImgUnchecked{
+	background: none;
+}
+.loginCheckImgChecked{
+	background: url(../media/img_check.png) no-repeat;
+}
+#loginBoxKeepLoginDesc{
+	position: absolute; width: 200px; height: 50px; top: 30px; left: 175px;
+	font-size: 20px; color: #000000;
+}
+
+#footerSearchMyInfo{
+	position: relative; margin: 10px 10px 0; cursor: pointer;
+}
+#footerPrivacy{
+	position: relative; margin: 10px 10px 0; cursor: pointer;
+}
+#footerCopyright{
+	position: relative; margin: 10px 10px 0;
+}
+
+
+
+#mainPageArea{
+	position: absolute; width: 100%; height: 100%; display: none;
+}
+#mainPageHeaderTap{
+	position: relative; float: left; width: 100%; height: 5%; z-index: 1;
+}
+.mainPageHeaders{
+	position: relative; float: left; width: 160px; padding: 10px; margin: 10px;
+	font-size: 25px; color: #FFFFFF; cursor: pointer; text-align: center;
+}
+#mainPageHeaderSettings{
+	position: relative; float: right; width: 160px; padding: 10px; margin: 10px;
+	font-size: 25px; color: #FFFFFF; cursor: pointer; text-align: center;
+}
+#mainPageContentsArea{
+	position: relative; float: left; width: 100%; height: 95%; overflow-y: scroll;
+}
+.mainPageContents{
+	position: absolute; width: 92%; height: 92%; margin: 4%;
+}
+#mainPageContentsMyLibrary{
+	display: block;
+}
+#mainPageContentsStore{
+	display: none;
+}
+#mainPageContentsHWPurchase{
+	display: none;
+}
+
+.mainPageContentsItems{
+	position: relative; float: left; width: 150px; height: 180px; cursor: pointer; margin: 15px 15px 0;
+}
+.mainPageContentsItemIcon{
+	position: relative; float: left; width: 120px; height: 120px; margin: 15px 15px 7px;
+}
+.mainPageContentsItemTitle{
+	position: relative; float: left; width: 150px; height: 30px;
+	text-align: center; font-size: 18px; color: #FFFFFF;
+}
+
+
+/* 경필 */
+
+#validPwBox{
+    position: relative; margin: 10% auto;
+    width: 400px; height: 400px; border-radius: 40px;
+    background-color: #FFFFFF; display: none;
+}
+
+#validPwBoxHead{
+    position: relative; float: left; width: 100%; height: 50%;
+}
+
+#validPwBoxLogo{
+    position: relative; width: 120px; height: 120px; margin: 20px 143px 0px;
+}
+
+#validPwBoxDescription{
+    position: relative; float: left; width: 100%; height: 50px; text-align: center;
+    font-size: 20px; color: #003756;
+}
+
+#validPwBoxBody{
+    position: relative; float: left; width: 100%; height: 50%;
+}
+#validPassword{
+    position: relative;
+    float: left;
+    width: 55%;
+    height: 30px;
+    margin: 15px 30px;
+    font-size: 20px;
+}
+#pw{
+    font-size: 20px;
+    color: #ea984e;
+    position: relative;
+    float: left;
+    top: 5px;
+    left: 20px;
+}
+#validBoxEnter{
+    position: relative;
+    width: 40px;
+    height: 30px;
+    top: 15px;
+}
+
+#infoSettingBox{
+    position: relative; margin: 10% auto;
+    width: 500px; height: 400px; border-radius: 40px;
+    background-color: #FFFFFF; display: none;
+}
+
+#infoSettingBoxHead{
+    position: relative;
+    float: left;
+    width: 100%;
+    height: 25%;
+}
+
+#infoSettingDescription{
+    position: relative;
+    top: 50%;
+    float: left;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    font-size: 20px;
+    color: #3B5998;
+}
+
+#infoSettingBoxBody{
+    position: relative;
+    float: left;
+    width: 100%;
+    height: 50%;
+}
+
+.settingText{
+    width: 20%;
+    font-size: 20px;
+    color: #ea984e;
+    position: relative;
+    float: left;
+    left: 40px;
+}
+.settingTextBox{
+    position: relative;
+    float: left;
+    width: 60%;
+    height: 30px;
+    margin: 15px 30px;
+    font-size: 20px;
+}
+
+/* 경필 */
+
+
+/* 경미 */
+#HWPurchase{
+	position: relative; float: left; padding: 5px 10px; padding-left: 40%;
+}
+
+#descriptionBox{
+	position: relative; margin: 10% auto;
+	width: 700px; height: 360px; border-radius: 40px;
+	background-color: #FFFFFF; display: none;
+}
+#hwImage{
+	background: url(../media/img_logo.png) no-repeat;
+	position: relative; float: left; width: 45%; height: 90%;
+	margin-left: 5%; margin-bottom: 5%; margin-top: 5%;
+}
+#hwInfo{
+	margin-top: 5%;
+	float: right; width: 45%; height: 80%;
+	margin-right: 5%;
+	margin-bottom: 5%;
+}
+#hwDescription{
+	font-size: 30px;
+}
+#hwPurchaseButton{
+	float: right;
+	font-size: 20px;
+	margin-top: 50%;
+}
+
+#paymentBox{
+	position: relative; margin: 10% auto;
+	width: 400px; height: 300px; border-radius: 40px;
+	background-color: #FFFFFF; display: none;
+}
+
+#paymentTitle{
+	position: relative; float: left; width: 100%;
+	font-size: 30px;
+	text-align: center;
+	margin-top: 10%; margin-bottom: 10px;
+}
+
+#paymentInfo{
+	position: relative; float: left; width: 100%;
+	font-size: 20px;
+	border: none;
+	margin: 10px auto;
+}
+
+#paymentCheckOut{
+	position: relative; float: left; width: 100%;
+	float: left;
+	font-size: 20px;
+	margin-left: 25%;
+	margin-top: 20px;
+}
+
+input.payinfo{
+	margin-left: 10%; margin-right: auto; margin-bottom: 4px;
+	font-size: 20px;
+	border:none;
+	border-bottom-style: outset;
+	border-bottom-width: 2px;
+}
+
+#payCheckOut{
+	font-size: 20px;
+	background-color: lightblue;
+}
+/* 경미 */
