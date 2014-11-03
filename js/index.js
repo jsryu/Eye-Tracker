@@ -13,6 +13,7 @@ var init = function(){
 		pw = $("#loginBoxPW").val();
 		
 		if(id == "" || pw == ""){
+			alert("test test test");
 			alert("Type correctly.");
 			return;
 		}
