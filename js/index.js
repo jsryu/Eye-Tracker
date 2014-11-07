@@ -5,6 +5,8 @@ var init = function(){
     
 	$("#loginBox").fadeIn(1200, function() {}); // login box fade in
 	
+	initSignupFunctions();
+	
 	/**
 	 * login 버튼 click 이벤트 
 	 */
@@ -13,11 +15,11 @@ var init = function(){
 		pw = $("#loginBoxPW").val();
 		
 		if(id == "" || pw == ""){
-			alert("test test test");
 			alert("Type correctly.");
 			return;
 		}
 		
+		$("#headerSignUp").hide();
 		$("#backgroundBlur").fadeOut(700, function() {});
 		$("#loginBox").fadeOut(800, function() {  // login box fade out
 			$("#mainPageArea").fadeIn(300, function() {});
@@ -130,4 +132,64 @@ var init = function(){
 	/*
 	 * 경미
 	 */
+};
+
+var initSignupFunctions = function(){
+	/**
+	 * signup 버튼 click 이벤트
+	 */
+	$("#headerSignUp").click(function(){
+		$("#loginBox").hide();
+		$("#signupBox").fadeIn(500);
+	});
+	
+	$("#signupBoxIDCheck").click(function(){
+		alert("check ID");
+		/**
+		 * TODO
+		 * DB를 검색해서 중복되는 아이디 있는지 체크 필요 
+		 */
+	});
+	
+	var isSignupPasswordMatch = false;
+	/**
+	 * signup password check handler
+	 */
+	$("#signupBoxPWCheck").keyup(function(e) {
+		var tempPW = $("#signupBoxPW").val();
+		var searchValue = this.value;
+		
+		if(tempPW == searchValue){
+			$("#signupBoxPasswordCheckDesc").text("Valid password").css("color", "green");
+			isSignupPasswordMatch = true;
+		} else{
+			$("#signupBoxPasswordCheckDesc").text("Invalid password. Check again.").css("color", "red");
+			isSignupPasswordMatch = false;
+		}
+	});
+	
+	$("#signupBoxSubmit").click(function(){
+		
+		if(isSignupPasswordMatch){
+		
+			var signupID = $("#signupBoxID").val();
+			var signupPW = $("#signupBoxPW").val();
+			var signupAddress = $("#signupBoxAddress").val();
+			var signupPhoneNumber = $("#signupBoxPhoneNumber").val();
+			var signupEmail = $("#signupBoxEmail").val();
+			
+			/**
+			 * TODO
+			 * 입력받은 정보를 서버에 전송 
+			 */
+			
+		} else{
+			alert("Check your typed information again.");
+		}
+		
+	});
+	$("#signupBoxCloseBtn").click(function(){
+		$("#signupBox").hide();
+		$("#loginBox").fadeIn(500);
+	});
 };
