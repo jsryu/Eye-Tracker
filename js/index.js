@@ -1,12 +1,35 @@
 var init = function(){
 	
+	/**
+	 * TODO
+	 * 전역변수로 두지 말고, DB에서 가져오는 형태로 변경해야함 
+	 */
 	var id = "";
     var pw = "";
     
-	$("#loginBox").fadeIn(1200, function() {}); // login box fade in
+	$("#loginBox").fadeIn(1200); // login box fade in
 	
 	initSignupFunctions();
 	
+	$("#headerLogOut").click(function(){
+		/**
+		 * TODO
+		 * login session 끊어주는 작업 필요 
+		 */
+		
+		if($("#loginBoxKeepLoginCheckImg").attr("class") == "loginCheckImgUnchecked"){
+			$("#loginBoxID").val("");
+			$("#loginBoxPW").val("");
+		}
+		
+		$("#headerLogOut").hide();
+		$("#headerSignUp").show();
+		$("#backgroundBlur").fadeIn(300, function() {});
+		$("#mainPageArea").fadeOut(300, function() {
+			$("#loginBox").fadeIn(800, function() {});
+		});
+	});
+
 	/**
 	 * login 버튼 click 이벤트 
 	 */
@@ -20,6 +43,7 @@ var init = function(){
 		}
 		
 		$("#headerSignUp").hide();
+		$("#headerLogOut").show();
 		$("#backgroundBlur").fadeOut(700, function() {});
 		$("#loginBox").fadeOut(800, function() {  // login box fade out
 			$("#mainPageArea").fadeIn(300, function() {});
@@ -140,6 +164,9 @@ var initSignupFunctions = function(){
 	 */
 	$("#headerSignUp").click(function(){
 		$("#loginBox").hide();
+		$("#loginBoxID").val("");
+		$("#loginBoxPW").val("");
+		
 		$("#signupBox").fadeIn(500);
 	});
 	

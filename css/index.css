@@ -72,6 +72,11 @@ button:focus {
 	position: relative; float: right; padding: 5px 10px;
 	background-color: transparent; color: #FFFFFF; width: 110px; height: 40px; font-size: 20px;
 }
+#headerLogOut{
+	position: relative; float: right; padding: 5px 10px;
+	background-color: transparent; color: #FFFFFF; width: 110px; height: 40px; font-size: 20px;
+	display: none;
+}
 /*#headerSetting{
 	position: relative; float: right; padding: 5px 10px; cursor: pointer;
 }*/
@@ -119,7 +124,7 @@ button:focus {
 	position: absolute; width: 24px; height: 24px; top: 30px; left: 135px; cursor: pointer;
 }
 #loginBoxKeepLoginCheckImg{
-	position: absolute; width: 30px; height: 24px; top: -4px; left: -2px; cursor: pointer;
+	position: absolute; width: 30px; height: 34px; top: -4px; left: -2px; cursor: pointer;
 }
 .loginCheckImgUnchecked{
 	background: none;
