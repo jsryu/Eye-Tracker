@@ -232,7 +232,15 @@ button:focus {
 	position: relative; float: left; width: 100%; height: 95%; overflow-y: scroll;
 }
 .mainPageContents{
-	position: absolute; width: 92%; height: 92%; margin: 4%;
+	position: absolute; width: 92%; height: 92%; margin: 5% 4%;
+}
+#mainPageSearchContainer{
+	position: absolute; width: 350px; height: 45px; top: 30px; left: 55px;
+}
+#mainPageContentsSearch{
+	position: absolute; width: 300px; height: 35px; top: 5px; left: 20px;
+	font-size: 15px; color: #000000; z-index: 1;
+	border: none; outline: none; border-radius: 10px; padding: 10px;
 }
 #mainPageContentsMyLibrary{
 	display: block;
