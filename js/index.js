@@ -1,16 +1,72 @@
+/**
+ * TODO
+ * 전역변수로 두지 말고, DB에서 가져오는 형태로 변경해야함 
+ */
+var tempGlobalID = "";
+var tempGlobalPW = "";
+
 var init = function(){
-	
-	/**
-	 * TODO
-	 * 전역변수로 두지 말고, DB에서 가져오는 형태로 변경해야함 
-	 */
-	var id = "";
-    var pw = "";
     
 	$("#loginBox").fadeIn(1200); // login box fade in
 	
+	initLoginFunctions();
 	initSignupFunctions();
 	initContentsFunctions();
+	
+	$("#footerSearchMyInfo").click(function(){
+		console.log("click Find your ID/PW");
+	});
+	
+	$("#footerPrivacy").click(function(){
+		console.log("click privacy");
+	});
+	
+};
+
+var initLoginFunctions = function(){
+	
+	$("#loginBoxPW").keyup(function(e) {
+		if(e.keyCode == 13 || e.which == 13){
+			doLoginProcess();
+		}
+	});
+	
+	/**
+	 * login 버튼 click 이벤트 
+	 */
+	$("#loginBoxEnter").click(function(){
+		doLoginProcess();
+	});
+	
+	var doLoginProcess = function(){
+		tempGlobalID = $("#loginBoxID").val();
+		tempGlobalPW = $("#loginBoxPW").val();
+		
+		if(tempGlobalID == "" || tempGlobalPW == ""){
+			alert("Type correctly.");
+			return;
+		}
+		
+		/**
+		 * TODO
+		 * 서버에서 login validation 체크 필요 
+		 */
+		$("#headerSignUp").hide();
+		$("#headerLogOut").show();
+		$("#backgroundBlur").fadeOut(700, function() {});
+		$("#loginBox").fadeOut(800, function() {  // login box fade out
+			$("#mainPageArea").fadeIn(300, function() {});
+		});
+	};
+	
+	$("#loginBoxKeepLoginCheckImg").click(function(){
+		var className = $(this).attr("class");
+		if(className == "loginCheckImgUnchecked"){
+			$(this).attr("class", "loginCheckImgChecked");
+		} else {
+			$(this).attr("class", "loginCheckImgUnchecked");
+		}
+	});
 	
 	$("#headerLogOut").click(function(){
 		/**
@@ -30,48 +86,6 @@ var init = function(){
 			$("#loginBox").fadeIn(800, function() {});
 		});
 	});
-
-	/**
-	 * login 버튼 click 이벤트 
-	 */
-	$("#loginBoxEnter").click(function(){
-		id = $("#loginBoxID").val();
-		pw = $("#loginBoxPW").val();
-		
-		if(id == "" || pw == ""){
-			alert("Type correctly.");
-			return;
-		}
-		
-		/**
-		 * TODO
-		 * 서버에서 login validation 체크 필요 
-		 */
-		$("#headerSignUp").hide();
-		$("#headerLogOut").show();
-		$("#backgroundBlur").fadeOut(700, function() {});
-		$("#loginBox").fadeOut(800, function() {  // login box fade out
-			$("#mainPageArea").fadeIn(300, function() {});
-		});
-	});
-	
-	$("#loginBoxKeepLoginCheckImg").click(function(){
-		var className = $(this).attr("class");
-		if(className == "loginCheckImgUnchecked"){
-			$(this).attr("class", "loginCheckImgChecked");
-		} else {
-			$(this).attr("class", "loginCheckImgUnchecked");
-		}
-	});
-	
-	$("#footerSearchMyInfo").click(function(){
-		console.log("click Find your ID/PW");
-	});
-	
-	$("#footerPrivacy").click(function(){
-		console.log("click privacy");
-	});
-	
 };
 
 var initSignupFunctions = function(){
@@ -198,38 +212,6 @@ var initContentsFunctions = function(){
 		console.log(item.children()[1].textContent + " clicked.");
 	});
 	
-    // valid the password
-	$("#mainPageHeaderSettings").click(function(){
-		$("#paymentBox").hide();
-		$("#descriptionBox").hide();
-		$("#backgroundBlur").show();
-		$("#validPassword").val("");
-		$("#validPwBox").fadeIn(1200, function() {});
-	});
-	
-	/*
-	 * 경필
-	 */
-    $("#validBoxEnter").click(function(){
-        var validPw = $("#validPassword").val();
-        if(pw == validPw)
-        {
-            $("#memberIdBox").val(id);
-            $("#validPwBox").hide();
-            $("#infoSettingBox").show();
-        }else {
-            alert("You input the wrong password!");
-            $("#validPwBox").hide();
-            $("#backgroundBlur").hide();
-        }
-    });
-    /*
-     * 경필
-     */
-    
-    /*
-     * 경미 
-     */
 	$("#hwPurchaseButton").click(function(){
 		$("#descriptionBox").fadeOut(500,function(){
 			$("#paymentBox").fadeIn(1000,function(){});
@@ -240,9 +222,46 @@ var initContentsFunctions = function(){
 		$("#paymentBox").fadeOut(1000,function(){});
 		$("#backgroundBlur").fadeOut(1000, function() {});
 	});
+	
+    // valid the password
+	$("#mainPageHeaderSettings").click(function(){
+		$("#mainPageTransparentLayer").show();
+		
+		$("#validPwBoxCloseBtn").unbind("click");
+		$("#validPwBoxCloseBtn").click(function(){
+			$("#validPwBox").hide();
+			$("#mainPageTransparentLayer").hide();
+		});
+		
+		$("#validPWBoxPassword").val("");
+		$("#validPwBox").fadeIn(1200, function() {});
+	});
+	
 	/*
-	 * 경미
+	 * 경필
 	 */
+    $("#validBoxEnter").click(function(){
+        var validPw = $("#validPWBoxPassword").val();
+        if(tempGlobalPW == validPw) {
+        	
+        	$("#mainPageTransparentLayer").show();
+            $("#memberIdBox").val(tempGlobalID);
+            $("#validPwBox").hide();
+            
+            $("#infoSettingBoxCloseBtn").unbind("click");
+    		$("#infoSettingBoxCloseBtn").click(function(){
+    			$("#mainPageTransparentLayer").hide();
+    			$("#infoSettingBox").hide();
+    		});
+            $("#infoSettingBox").show();
+            
+        } else {
+            alert("You input the wrong password!");
+        }
+    });
+    /*
+     * 경필
+     */
 	
 	contentsSearchInit();
 };
@@ -253,7 +272,6 @@ var initContentsFunctions = function(){
 var contentsSearchInit = function(){
 	
 	$("#mainPageContentsSearch").val("");
-	$("#mainPageContentsSearch").unbind("keyup");
 	$("#mainPageContentsSearch").keyup(function(e) {
 		
 		var searchValue = this.value.toLowerCase();

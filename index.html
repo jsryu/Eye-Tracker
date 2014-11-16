@@ -57,6 +57,7 @@
     			</div>
 	    		
 	    		<div id="mainPageArea">
+	    			<div id="mainPageTransparentLayer"></div>
 	    			<div id="mainPageHeaderTap">
 	    				<div id="mainPageHeaderMyLibrary" class="mainPageHeaders">My Library</div>
 	    				<div id="mainPageHeaderStore" class="mainPageHeaders">Store</div>
@@ -97,7 +98,34 @@
 	    				
 	    				
 	    				<div id="mainPageContentsHWPurchase" class="mainPageContents">
-	    					
+	    					<!-- 경미 -->
+					    	<div id="descriptionBox">
+					    		<div id="hwImage"></div>
+						    	<div id="hwInfo">
+						    		<div id="hwDescription">
+						    			Name : <br>
+						    			Price : <br>
+						    			Description : <br>
+						    		</div>
+						    		<div id="hwPurchaseButton">
+						    			<a>Purchase ☞</a>
+						    		</div>
+						    	</div>
+						    </div>
+					
+							<div id="paymentBox">
+								<div id="paymentTitle">Payment
+								</div>
+								<div id="paymentInfo">
+									<input type="text" name="email" class="payinfo" placeholder="Email"><br>
+									<input type="text" name="cardNum" class="payinfo" placeholder="Card Number"><br>
+									<input type="text" name="date" class="payinfo" size="10" placeholder="MM/DD"><input type="text" name="CVC" class="payinfo" size="10" placeholder="CVC">
+								</div>
+								<div id="paymentCheckOut">
+										<button id="payCheckOut">Check Out $ 1.99</button>
+								</div>
+							</div>
+			                <!-- 경미 -->
 	    				</div>
 	    			</div>
 	    		</div>
@@ -105,20 +133,22 @@
 	    		<!-- 경필 -->
 	    		<!-- 패스워드 입력 받는 곳 -->
                 <div id="validPwBox">
+                	<button id="validPwBoxCloseBtn"></button>
                     <div id="validPwBoxHead">
                         <img id="validPwBoxLogo" src="media/img_logo.png" alt="logo" />
-                        <div id="validPwBoxDescription">비밀번호를 입력하세요</div>
+                        <div id="validPwBoxDescription">Type your password</div>
                     </div>
                     <div id="validPwBoxBody">
-                        <h2 id="pw">PW:</h2> <input type="password" id="validPassword" placeholder="password">
+                        <h2 id="validPWBoxText">PW:</h2> <input type="password" id="validPWBoxPassword" placeholder="password">
                         <button id="validBoxEnter">Next</button>
                     </div>
                 </div>
 
                 <!-- 개인정보 수정하는 곳 -->
                 <div id="infoSettingBox">
+                	<button id="infoSettingBoxCloseBtn"></button>
                     <div id="infoSettingBoxHead">
-                        <div id="infoSettingDescription">정보를 수정하세요</div>
+                        <div id="infoSettingDescription">Change your information</div>
                     </div>
                     <div id="infoSettingBoxBody">
                         <h2 class="settingText" id="memberId">ID:</h2><input type="text" class="settingTextBox" id="memberIdBox" disabled>
@@ -129,35 +159,6 @@
                 </div>
                 <!-- 경필 -->
                 
-                
-                <!-- 경미 -->
-		    	<div id="descriptionBox">
-		    		<div id="hwImage"></div>
-			    	<div id="hwInfo">
-			    		<div id="hwDescription">
-			    			Name : <br>
-			    			Price : <br>
-			    			Description : <br>
-			    		</div>
-			    		<div id="hwPurchaseButton">
-			    			<a>Purchase ☞</a>
-			    		</div>
-			    	</div>
-			    </div>
-		
-				<div id="paymentBox">
-					<div id="paymentTitle">Payment
-					</div>
-					<div id="paymentInfo">
-						<input type="text" name="email" class="payinfo" placeholder="Email"><br>
-						<input type="text" name="cardNum" class="payinfo" placeholder="Card Number"><br>
-						<input type="text" name="date" class="payinfo" size="10" placeholder="MM/DD"><input type="text" name="CVC" class="payinfo" size="10" placeholder="CVC">
-					</div>
-					<div id="paymentCheckOut">
-							<button id="payCheckOut">Check Out $ 1.99</button>
-					</div>
-				</div>
-                <!-- 경미 -->
 	    	</div>
 	    	
 	    	<div id="footerArea">
