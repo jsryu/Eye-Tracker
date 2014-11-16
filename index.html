@@ -98,7 +98,6 @@
 	    				
 	    				
 	    				<div id="mainPageContentsHWPurchase" class="mainPageContents">
-	    					<!-- 경미 -->
 					    	<div id="descriptionBox">
 					    		<div id="hwImage"></div>
 						    	<div id="hwInfo">
@@ -114,23 +113,28 @@
 						    </div>
 					
 							<div id="paymentBox">
-								<div id="paymentTitle">Payment
-								</div>
+								<button id="paymentBoxCloseBtn"></button>
+								<div id="paymentTitle">Payment</div>
 								<div id="paymentInfo">
-									<input type="text" name="email" class="payinfo" placeholder="Email"><br>
-									<input type="text" name="cardNum" class="payinfo" placeholder="Card Number"><br>
-									<input type="text" name="date" class="payinfo" size="10" placeholder="MM/DD"><input type="text" name="CVC" class="payinfo" size="10" placeholder="CVC">
+									<span class="paymentBoxSpans">Email </span>
+									<input type="text" id="paymentInfoEmail" class="payinfo" placeholder="Email"><br>
+									<span class="paymentBoxSpans">Phone </span>
+									<input type="text" id="paymentInfoPhoneNum" class="payinfo" placeholder="Phone number"><br>
+									<span class="paymentBoxSpans">Address </span>
+									<input type="text" id="paymentInfoAddress" class="payinfo" placeholder="Address">
+									<span class="paymentBoxSpans">Card </span>
+									<input type="text" id="paymentInfoCardNum" class="payinfo" placeholder="Type without '-'"><br>
+									<span class="paymentBoxSpans">CVC </span>
+									<input type="text" id="paymentInfoCVC" class="payinfo" placeholder="CVC">
 								</div>
 								<div id="paymentCheckOut">
-										<button id="payCheckOut">Check Out $ 1.99</button>
+									<button id="payCheckOutBtn">Check Out $ 1.99</button>
 								</div>
 							</div>
-			                <!-- 경미 -->
 	    				</div>
 	    			</div>
 	    		</div>
 	    		
-	    		<!-- 경필 -->
 	    		<!-- 패스워드 입력 받는 곳 -->
                 <div id="validPwBox">
                 	<button id="validPwBoxCloseBtn"></button>
@@ -157,7 +161,6 @@
                         <h2 class="settingText">E-mail</h2><input type="text" class="settingTextBox">
                     </div>
                 </div>
-                <!-- 경필 -->
                 
 	    	</div>
 	    	

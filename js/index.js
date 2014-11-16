@@ -25,6 +25,9 @@ var init = function(){
 
 var initLoginFunctions = function(){
 	
+	/**
+	 * enter 입력 시 login 처리 
+	 */
 	$("#loginBoxPW").keyup(function(e) {
 		if(e.keyCode == 13 || e.which == 13){
 			doLoginProcess();
@@ -42,19 +45,27 @@ var initLoginFunctions = function(){
 		tempGlobalID = $("#loginBoxID").val();
 		tempGlobalPW = $("#loginBoxPW").val();
 		
-		if(tempGlobalID == "" || tempGlobalPW == ""){
-			alert("Type correctly.");
-			return;
-		}
-		
 		/**
 		 * TODO
 		 * 서버에서 login validation 체크 필요 
 		 */
+		
 		$("#headerSignUp").hide();
 		$("#headerLogOut").show();
 		$("#backgroundBlur").fadeOut(700, function() {});
 		$("#loginBox").fadeOut(800, function() {  // login box fade out
+			
+			currentTabPage = "mainPageContentsMyLibrary";
+			$("#mainPageSearchContainer").show();
+			
+			$("#mainPageContentsMyLibrary").show();
+			$("#mainPageContentsStore").hide();
+			$("#mainPageContentsHWPurchase").hide();
+			
+			$("#paymentBox").hide();
+			$("#descriptionBox").hide();
+			$("#validPwBox").hide();
+			
 			$("#mainPageArea").fadeIn(300, function() {});
 		});
 	};
@@ -81,6 +92,8 @@ var initLoginFunctions = function(){
 		
 		$("#headerLogOut").hide();
 		$("#headerSignUp").show();
+		$("#mainPageTransparentLayer").hide();
+		$("#validPwBox").hide();
 		$("#backgroundBlur").fadeIn(300, function() {});
 		$("#mainPageArea").fadeOut(300, function() {
 			$("#loginBox").fadeIn(800, function() {});
@@ -212,18 +225,13 @@ var initContentsFunctions = function(){
 		console.log(item.children()[1].textContent + " clicked.");
 	});
 	
-	$("#hwPurchaseButton").click(function(){
-		$("#descriptionBox").fadeOut(500,function(){
-			$("#paymentBox").fadeIn(1000,function(){});
-		});
-	});
-
-	$("#payCheckOut").click(function(){
-		$("#paymentBox").fadeOut(1000,function(){});
-		$("#backgroundBlur").fadeOut(1000, function() {});
-	});
 	
-    // valid the password
+	userSettingsInit();
+	contentsSearchInit();
+	hardwarePurchaseInit();
+};
+
+var userSettingsInit = function(){
 	$("#mainPageHeaderSettings").click(function(){
 		$("#mainPageTransparentLayer").show();
 		
@@ -234,12 +242,10 @@ var initContentsFunctions = function(){
 		});
 		
 		$("#validPWBoxPassword").val("");
-		$("#validPwBox").fadeIn(1200, function() {});
+		$("#validPwBox").show();
+		
 	});
 	
-	/*
-	 * 경필
-	 */
     $("#validBoxEnter").click(function(){
         var validPw = $("#validPWBoxPassword").val();
         if(tempGlobalPW == validPw) {
@@ -259,11 +265,43 @@ var initContentsFunctions = function(){
             alert("You input the wrong password!");
         }
     });
-    /*
-     * 경필
-     */
+    
+};
+
+var hardwarePurchaseInit = function(){
+	$("#hwPurchaseButton").click(function(){
+		$("#descriptionBox").fadeOut(500,function(){
+			$("#paymentInfoEmail").val("");
+			$("#paymentInfoAddress").val("");
+			$("#paymentInfoPhoneNum").val("");
+			$("#paymentInfoCardNum").val("");
+			$("#paymentInfoCVC").val("");
+			$("#paymentBox").fadeIn(1000,function(){});
+		});
+	});
+
+	$("#paymentBoxCloseBtn").click(function(){
+		$("#paymentBox").fadeOut(500,function(){
+			$("#descriptionBox").fadeIn(1000,function(){});
+		});
+	});
 	
-	contentsSearchInit();
+	$("#payCheckOutBtn").click(function(){
+		
+		var paymentInfoEmail = $("#paymentInfoEmail").val();
+		var paymentInfoAddress = $("#paymentInfoAddress").val();
+		var paymentInfoPhoneNum = $("#paymentInfoPhoneNum").val();
+		var paymentInfoCardNum = $("#paymentInfoCardNum").val();
+		var paymentInfoCVC = $("#paymentInfoCVC").val();
+		
+		/**
+		 * TODO
+		 * payment 이력 테이블에 insert 
+		 */
+		
+		$("#paymentBox").fadeOut(1000,function(){});
+		$("#backgroundBlur").fadeOut(1000, function() {});
+	});
 };
 
 /**
