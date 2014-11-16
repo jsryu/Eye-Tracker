@@ -28,7 +28,7 @@ var initLoginFunctions = function(){
 	/**
 	 * enter 입력 시 login 처리 
 	 */
-	$("#loginBoxPW").keyup(function(e) {
+	$("#loginBoxPW").keypress(function(e) {
 		if(e.keyCode == 13 || e.which == 13){
 			doLoginProcess();
 		}
@@ -246,25 +246,98 @@ var userSettingsInit = function(){
 		
 	});
 	
+	$("#validPWBoxPassword").keypress(function(e) {
+		if(e.keyCode == 13 || e.which == 13){
+			doValidatePasswordProcess();
+		}
+	});
+	
     $("#validBoxEnter").click(function(){
-        var validPw = $("#validPWBoxPassword").val();
+    	doValidatePasswordProcess();
+    });
+    
+    var doValidatePasswordProcess = function(){
+    	var validPw = $("#validPWBoxPassword").val();
         if(tempGlobalPW == validPw) {
         	
         	$("#mainPageTransparentLayer").show();
-            $("#memberIdBox").val(tempGlobalID);
+            $("#settingBoxID").val(tempGlobalID);
             $("#validPwBox").hide();
             
             $("#infoSettingBoxCloseBtn").unbind("click");
     		$("#infoSettingBoxCloseBtn").click(function(){
     			$("#mainPageTransparentLayer").hide();
     			$("#infoSettingBox").hide();
+    			initializeSettingTextBox();
     		});
+    		
+    		/**
+    		 * TODO
+    		 * 유저 테이블에서 기존 정보를 가져와서 text box 를 채워주는 부분 필요 
+    		 */
+//        	$("#settingBoxPW").val();
+//        	$("#settingBoxAddress").val();
+//        	$("#settingBoxEmail").val();
+//        	$("#settingBoxPhoneNum").val();
+    		
             $("#infoSettingBox").show();
             
         } else {
             alert("You input the wrong password!");
         }
+    };
+    
+    var isSettingPasswordMatch = false;
+	/**
+	 * setting password check handler
+	 */
+	$("#settingBoxPWCheck").keyup(function(e) {
+		var tempPW = $("#settingBoxPW").val();
+		var searchValue = this.value;
+		
+		if(tempPW == searchValue){
+			$("#settingBoxPasswordCheckDesc").text("Valid password").css("color", "green");
+			isSettingPasswordMatch = true;
+		} else{
+			$("#settingBoxPasswordCheckDesc").text("Invalid password. Check again.").css("color", "red");
+			isSettingPasswordMatch = false;
+		}
+	});
+    
+    $("#settingBoxConfirmBtn").click(function(){
+    	
+    	if(isSettingPasswordMatch){
+    		var settingBoxID = $("#settingBoxID").val();
+        	var settingBoxPW = $("#settingBoxPW").val();
+        	var settingBoxAddress = $("#settingBoxAddress").val();
+        	var settingBoxEmail = $("#settingBoxEmail").val();
+        	var settingBoxPhoneNum = $("#settingBoxPhoneNum").val();
+        	
+        	/**
+        	 * TODO
+        	 * 유저 정보 테이블에 업데이트 필요 
+        	 */
+        	
+        	$("#mainPageTransparentLayer").hide();
+        	$("#infoSettingBox").fadeOut(700, function(){
+        		initializeSettingTextBox();
+        	});
+    		
+    	} else {
+    		alert("Check your typed information again.");
+    	}
+    	
     });
+    
+    var initializeSettingTextBox = function(){
+    	$("#settingBoxID").val("");
+    	$("#settingBoxPW").val("");
+    	$("#settingBoxPWCheck").val("");
+    	$("#settingBoxAddress").val("");
+    	$("#settingBoxEmail").val("");
+    	$("#settingBoxPhoneNum").val("");
+    	$("#settingBoxPasswordCheckDesc").text("Checking your password validation").css("color", "black");
+    };
     
 };
 
