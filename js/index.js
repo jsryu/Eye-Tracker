@@ -45,28 +45,49 @@ var initLoginFunctions = function(){
 		tempGlobalID = $("#loginBoxID").val();
 		tempGlobalPW = $("#loginBoxPW").val();
 		
-		/**
-		 * TODO
-		 * 서버에서 login validation 체크 필요 
-		 */
+		var data = {
+				"user_id": tempGlobalID,
+				"user_pw": tempGlobalPW
+		};
 		
-		$("#headerSignUp").hide();
-		$("#headerLogOut").show();
-		$("#backgroundBlur").fadeOut(700, function() {});
-		$("#loginBox").fadeOut(800, function() {  // login box fade out
-			
-			currentTabPage = "mainPageContentsMyLibrary";
-			$("#mainPageSearchContainer").show();
-			
-			$("#mainPageContentsMyLibrary").show();
-			$("#mainPageContentsStore").hide();
-			$("#mainPageContentsHWPurchase").hide();
-			
-			$("#paymentBox").hide();
-			$("#descriptionBox").hide();
-			$("#validPwBox").hide();
-			
-			$("#mainPageArea").fadeIn(300, function() {});
+		/**
+		 * Signup 서버에 요청 
+		 */
+		$.ajax({
+			type: "POST",
+			dataType: "json",
+			url: "php/login.php", //Relative or absolute path to response.php file
+			data: data,
+			success: function(response) {
+				if(response.result == 'success'){
+					console.log("login success");
+					
+					$("#headerSignUp").hide();
+					$("#headerLogOut").show();
+					$("#backgroundBlur").fadeOut(700, function() {});
+					$("#loginBox").fadeOut(800, function() {  // login box fade out
+						
+						currentTabPage = "mainPageContentsMyLibrary";
+						$("#mainPageSearchContainer").show();
+						
+						$("#mainPageContentsMyLibrary").show();
+						$("#mainPageContentsStore").hide();
+						$("#mainPageContentsHWPurchase").hide();
+						
+						$("#paymentBox").hide();
+						$("#descriptionBox").hide();
+						$("#validPwBox").hide();
+						
+						$("#mainPageArea").fadeIn(300, function() {});
+					});
+					
+				} else {
+					alert(response.desc);
+				}
+			},
+			error: function(response){
+				alert("login error");
+			}
 		});
 	};
 	
@@ -192,9 +213,11 @@ var initSignupFunctions = function(){
 				data: data,
 				success: function(response) {
 					if(response.result == 'success'){
-						console.log("signup success");
+						alert("signup success");
+						$("#signupBox").hide();
+						$("#loginBox").fadeIn(500);
 					} else {
-						console.log("signup fail");
+						alert("signup fail");
 					}
 				},
 				error: function(response){
@@ -422,8 +445,22 @@ var hardwarePurchaseInit = function(){
 		 * payment 이력 테이블에 insert 
 		 */
 		
-		$("#paymentBox").fadeOut(1000,function(){});
 		$("#backgroundBlur").fadeOut(1000, function() {});
+		$("#paymentBox").fadeOut(1000,function() {
+			currentTabPage = "mainPageContentsMyLibrary";
+			$("#mainPageSearchContainer").show();
+			
+			$("#mainPageContentsMyLibrary").show();
+			$("#mainPageContentsStore").hide();
+			$("#mainPageContentsHWPurchase").hide();
+			
+			$("#paymentBox").hide();
+			$("#descriptionBox").hide();
+			$("#validPwBox").hide();
+			
+			$("#mainPageArea").fadeIn(300, function() {});
+		});
+		
 	});
 };
 

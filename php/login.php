@@ -19,32 +19,36 @@
 
   $query = "SELECT * FROM user WHERE name='$user'";
   $result = $mysqli->query($query);
+  
+  $return_arr['result'] = '';
 
-  if(!($row = $result->fetch_array(MYSQLI_ASSOC))){
-    //확인용 alert구문
-  	echo "<script>alert('등록되지 않은 아이디 입니다')</script>";
+  	if(!($row = $result->fetch_array(MYSQLI_ASSOC))){
+	  	$return_arr['result'] = 'fail';
+	  	$return_arr['desc'] = 'not registered ID.';
+		echo json_encode($return_arr);
+  		exit;
+  	}
+  	else{
+   		$db_passwd = $row["pw"];
+  	}
 
-  	exit;
-  }
-  else{
-   	$db_passwd = $row["pw"];
-  }
-
-  if($user_pw != $db_passwd){
-    //확인용 alert구문2
-  	echo "<script>alert('wrong password');";
-  	exit;
-  }
-  else{
-  	$uid=$row["uid"];
-
-  	session_start();
-  	$_SESSION['user_id'] = $user;
-    $_SESSION['uid']=$uid;
-    $_SESSION['user_pw']=$user_pw;
-    
-    //확인용 alert구문3
-    echo "<script>alert('get');</script>";
-  }
+  	if($user_pw != $db_passwd){
+    	//확인용 alert구문2
+  		$return_arr['result'] = 'fail';
+	  	$return_arr['desc'] = 'Invalid Password.';
+		echo json_encode($return_arr);
+  		exit;
+  	}
+  	else{
+	  	$uid=$row["uid"];
+	
+	  	session_start();
+	  	$_SESSION['user_id'] = $user;
+	    $_SESSION['uid'] = $uid;
+	    $_SESSION['user_pw'] = $user_pw;
+	    
+	    $return_arr['result'] = 'success';
+		echo json_encode($return_arr);
+	}
 
 ?>
