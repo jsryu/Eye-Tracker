@@ -22,8 +22,10 @@
      
   	 if($mysqli->query($query)) {
       session_start();
-  	  
+  	  $uid=$mysqli->insert_id;
+      $_SESSION['uid']=$uid;
       $_SESSION['user_id']=$userID;
+      $_SESSION['user_pw']=$password;
      }
      else {
         echo "fail!";
@@ -35,29 +37,21 @@
   $mysqli=new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
   
    	if(!empty($_POST['signupBoxID'])) //checking the 'user' name from index.html(sign up box), is it empty or have some text
-  	 { 
-  	 	
+  	{
       $q = "SELECT * FROM user WHERE name = '$_POST[signupBoxID]'";
       $res=$mysqli->query($q);
-      //$row=$res->fetch_array(MYSQLI_NUM);
       
   	 	if(!($res->fetch_array(MYSQLI_NUM))){
   	 	 NewUser();        
   	 	}
   	 	else {
   	 	  echo "<script>alert ('SORRY...YOU ARE ALREADY REGISTERED USER...')</script>";
-       // echo "<meta http-equiv='refresh' content='0;url=index.html'>";
   	 	}
       $res->free();
-      $mysqli->close();
-      
-	 }
+      $mysqli->close();    
+	  }
   }
   	 
-  //if(isset($_POST['submit'])) {
-    //echo "true";
-    SignUp(); 
-  //} 
-
+  SignUp(); 
 
 ?>

@@ -148,31 +148,29 @@ var initSignupFunctions = function(){
 			var signupPhoneNumber = $("#signupBoxPhoneNumber").val();
 			var signupEmail = $("#signupBoxEmail").val();
 			
-			/**
-			 * TODO
-			 * 입력받은 정보를 서버에 전송 
-			 */
-
-			 var data = {
-					 "signupBoxID": signupID,
-					 "signupBoxPW": signupPW,
-					 "signupBoxAddress": signupAddress,
-					 "signupBoxPhoneNumber": signupPhoneNumber,
-					 "signupBoxEmail": signupEmail
-			 };
+			var data = {
+					"signupBoxID": signupID,
+					"signupBoxPW": signupPW,
+					"signupBoxAddress": signupAddress,
+					"signupBoxPhoneNumber": signupPhoneNumber,
+					"signupBoxEmail": signupEmail
+			};
     		
-			 $.ajax({
-				 type: "POST",
-				 dataType: "json",
-				 url: "php/signup.php", //Relative or absolute path to response.php file
-				 data: data,
-				 success: function(data) {
-					 console.log("success: " + data);
-				 },
-				 error: function(data){
-					 console.log("error");
-				 }
-			 });
+			/**
+			 * Signup 서버에 요청 
+			 */
+			$.ajax({
+				type: "POST",
+				dataType: "json",
+				url: "php/signup.php", //Relative or absolute path to response.php file
+				data: data,
+				success: function(data) {
+					console.log("success: " + data);
+				},
+				error: function(data){
+					console.log("error");
+				}
+			});
 
 		} else{
 			alert("Check your typed information again.");
