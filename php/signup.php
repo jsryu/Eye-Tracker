@@ -38,14 +38,14 @@
   
    		if(!empty($_POST['signupBoxID'])) //checking the 'user' name from index.html(sign up box), is it empty or have some text
   		{
-      		$q = "SELECT * FROM user WHERE name = '$_POST[signupBoxID]'";
-      		$res = $mysqli->query($q);
+      	$q = "SELECT * FROM user WHERE name = '$_POST[signupBoxID]'";
+      	$res = $mysqli->query($q);
 	  		
 	  		$return_arr['result'] = 'fail';
 	  	 	
 	  	 	if(!($res->fetch_array(MYSQLI_NUM))){
-	  	 		NewUser();
-				$return_arr['result'] = 'success';
+	  	 	  NewUser();
+				  $return_arr['result'] = 'success';
 	  	 	}
 			
 	  	 	$res->free();
@@ -60,27 +60,26 @@
   		
    		if(!empty($_POST['signupBoxID'])) //checking the 'user' name from index.html(sign up box), is it empty or have some text
   		{
-      		$q = "SELECT * FROM user WHERE name = '$_POST[signupBoxID]'";
-      		$res = $mysqli->query($q);
-			$isExistID = false;
-			
-  	 		if(($res->fetch_array(MYSQLI_NUM))){
-  	 			$isExistID = true;
+      	$q = "SELECT * FROM user WHERE name = '$_POST[signupBoxID]'";
+      	$res = $mysqli->query($q);
+			  $isExistID = 'false';		 
+  	 		if($res->num_rows){
+  	 			$isExistID = 'true';
   	 		}
 			
-      		$res->free();
-      		$mysqli->close();
+      	$res->free();
+      	$mysqli->close();
 			
-			$return_arr['result'] = 'success';
-			$return_arr['isExist'] = $isExistID;
+			  $return_arr['result'] = 'success';
+			  $return_arr['isExist'] = $isExistID;
 		    echo json_encode($return_arr);
-	  	} else {
+	    } else {
 	  		$return_arr['result'] = 'error';
 	  		echo json_encode($return_arr);
 	  	}
   	}
   
-  	$type = $_POST['signupBoxID'];
+  	$type = $_POST['type'];
 	
 	if($type == 'signup'){
 		SignUp();

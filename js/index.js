@@ -137,7 +137,7 @@ var initSignupFunctions = function(){
 	var isIDCheckSuccess = false;
 	$("#signupBoxIDCheck").click(function(){
 		var signupID = $("#signupBoxID").val();
-		
+		//var signupID = "checkID";
 		var data = {
 				"type": "checkID",
 				"signupBoxID": signupID
@@ -152,7 +152,7 @@ var initSignupFunctions = function(){
 			url: "php/signup.php", //Relative or absolute path to response.php file
 			data: data,
 			success: function(response) {
-				if(response.result == 'success'){
+				if(response.isExist == 'false'){
 					alert("You can use this ID.");
 					isIDCheckSuccess = true;
 				} else {
