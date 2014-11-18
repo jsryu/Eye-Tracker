@@ -152,12 +152,34 @@ var initSignupFunctions = function(){
 			 * TODO
 			 * 입력받은 정보를 서버에 전송 
 			 */
-			
+
+			 var data = {
+					 "signupBoxID": signupID,
+					 "signupBoxPW": signupPW,
+					 "signupBoxAddress": signupAddress,
+					 "signupBoxPhoneNumber": signupPhoneNumber,
+					 "signupBoxEmail": signupEmail
+			 };
+    		
+			 $.ajax({
+				 type: "POST",
+				 dataType: "json",
+				 url: "php/signup.php", //Relative or absolute path to response.php file
+				 data: data,
+				 success: function(data) {
+					 console.log("success: " + data);
+				 },
+				 error: function(data){
+					 console.log("error");
+				 }
+			 });
+
 		} else{
 			alert("Check your typed information again.");
 		}
 		
 	});
+	
 	$("#signupBoxCloseBtn").click(function(){
 		$("#signupBox").hide();
 		$("#loginBox").fadeIn(500);
