@@ -383,22 +383,22 @@ button:focus {
 }
 #hwImage{
 	background: url(../media/img_logo.png) no-repeat;
-	position: relative; float: left; width: 45%; height: 90%;
+	/*background: url(../media/img_eyetracker_sample.jpg) no-repeat;*/
+	position: relative; float: left; width: 40%; height: 90%;
 	margin-left: 5%; margin-bottom: 5%; margin-top: 5%;
 }
 #hwInfo{
-	margin-top: 5%;
-	float: right; width: 45%; height: 80%;
-	margin-right: 5%;
-	margin-bottom: 5%;
+	position: relative; float: right; width: 50%; height: 77%; margin: 4% 2%;
+
 }
 #hwDescription{
-	font-size: 30px;
+	width: 100%; height: 100%;
+}
+.hwDescSpans{
+	position: relative; float: left; margin: 5px; font-size: 25px; width: 95%;
 }
 #hwPurchaseButton{
-	float: right;
-	font-size: 20px;
-	margin-top: 50%;
+	position: relative; float: right; font-size: 20px; margin: 3px 18px;
 }
 
 #paymentBox{
