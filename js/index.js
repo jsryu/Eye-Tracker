@@ -113,12 +113,37 @@ var initSignupFunctions = function(){
 		$("#signupBox").fadeIn(500);
 	});
 	
+	var isIDCheckSuccess = false;
 	$("#signupBoxIDCheck").click(function(){
-		alert("check ID");
+		var signupID = $("#signupBoxID").val();
+		
+		var data = {
+				"type": "checkID",
+				"signupBoxID": signupID
+		};
+		
 		/**
-		 * TODO
-		 * DB를 검색해서 중복되는 아이디 있는지 체크 필요 
+		 * 동일한 ID 체크 관련 서버에 요청 
 		 */
+		$.ajax({
+			type: "POST",
+			dataType: "json",
+			url: "php/signup.php", //Relative or absolute path to response.php file
+			data: data,
+			success: function(response) {
+				if(response.result == 'success'){
+					alert("You can use this ID.");
+					isIDCheckSuccess = true;
+				} else {
+					alert("There exist same ID. Select other one.");
+					isIDCheckSuccess = false;
+				}
+			},
+			error: function(response){
+				console.log("check ID error");
+				isIDCheckSuccess = false;
+			}
+		});
 	});
 	
 	var isSignupPasswordMatch = false;
@@ -140,7 +165,7 @@ var initSignupFunctions = function(){
 	
 	$("#signupBoxSubmit").click(function(){
 		
-		if(isSignupPasswordMatch){
+		if(isIDCheckSuccess && isSignupPasswordMatch){
 		
 			var signupID = $("#signupBoxID").val();
 			var signupPW = $("#signupBoxPW").val();
@@ -149,6 +174,7 @@ var initSignupFunctions = function(){
 			var signupEmail = $("#signupBoxEmail").val();
 			
 			var data = {
+					"type": "signup",
 					"signupBoxID": signupID,
 					"signupBoxPW": signupPW,
 					"signupBoxAddress": signupAddress,
@@ -164,11 +190,15 @@ var initSignupFunctions = function(){
 				dataType: "json",
 				url: "php/signup.php", //Relative or absolute path to response.php file
 				data: data,
-				success: function(data) {
-					console.log("success: " + data);
+				success: function(response) {
+					if(response.result == 'success'){
+						console.log("signup success");
+					} else {
+						console.log("signup fail");
+					}
 				},
-				error: function(data){
-					console.log("error");
+				error: function(response){
+					console.log("signup error");
 				}
 			});
 

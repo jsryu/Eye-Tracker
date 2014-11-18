@@ -11,7 +11,7 @@
 
   function NewUser() { 			 		//sign up 안에서 씁니당
      //db에 넣을 사용자 input 값
-     $userID = $_POST['signupBoxID']; 
+     $userID = $_POST['signupBoxID'];
      $password = $_POST['signupBoxPW']; 
      $address = $_POST['signupBoxAddress'];
      $email = $_POST['signupBoxEmail']; 
@@ -33,25 +33,60 @@
      $mysqli->close();
   }
 
-  function SignUp() {
-  $mysqli=new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
+  	function SignUp() {
+  		$mysqli = new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
   
-   	if(!empty($_POST['signupBoxID'])) //checking the 'user' name from index.html(sign up box), is it empty or have some text
-  	{
-      $q = "SELECT * FROM user WHERE name = '$_POST[signupBoxID]'";
-      $res=$mysqli->query($q);
-      
-  	 	if(!($res->fetch_array(MYSQLI_NUM))){
-  	 	 NewUser();        
-  	 	}
-  	 	else {
-  	 	  echo "<script>alert ('SORRY...YOU ARE ALREADY REGISTERED USER...')</script>";
-  	 	}
-      $res->free();
-      $mysqli->close();    
-	  }
-  }
-  	 
-  SignUp(); 
+   		if(!empty($_POST['signupBoxID'])) //checking the 'user' name from index.html(sign up box), is it empty or have some text
+  		{
+      		$q = "SELECT * FROM user WHERE name = '$_POST[signupBoxID]'";
+      		$res = $mysqli->query($q);
+	  		
+	  		$return_arr['result'] = 'fail';
+	  	 	
+	  	 	if(!($res->fetch_array(MYSQLI_NUM))){
+	  	 		NewUser();
+				$return_arr['result'] = 'success';
+	  	 	}
+			
+	  	 	$res->free();
+	  	 	$mysqli->close();
+			
+		    echo json_encode($return_arr);
+	  	}
+  	}
+  
+  	function CheckID() {
+  		$mysqli = new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
+  		
+   		if(!empty($_POST['signupBoxID'])) //checking the 'user' name from index.html(sign up box), is it empty or have some text
+  		{
+      		$q = "SELECT * FROM user WHERE name = '$_POST[signupBoxID]'";
+      		$res = $mysqli->query($q);
+			$isExistID = false;
+			
+  	 		if(($res->fetch_array(MYSQLI_NUM))){
+  	 			$isExistID = true;
+  	 		}
+			
+      		$res->free();
+      		$mysqli->close();
+			
+			$return_arr['result'] = 'success';
+			$return_arr['isExist'] = $isExistID;
+		    echo json_encode($return_arr);
+	  	} else {
+	  		$return_arr['result'] = 'error';
+	  		echo json_encode($return_arr);
+	  	}
+  	}
+  
+  	$type = $_POST['signupBoxID'];
+	
+	if($type == 'signup'){
+		SignUp();
+	} else if($type == 'checkID'){
+		CheckID();
+	}
+   
 
 ?>
