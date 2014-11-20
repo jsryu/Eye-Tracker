@@ -1,6 +1,6 @@
 /**
  * TODO
- * 전역변수로 두지 말고, DB에서 가져오는 형태로 변경해야함 
+ * 전역변수로 두지 말고, DB에서 가져오는 형태로 변경해야함 test
  */
 var tempGlobalID = "";
 var tempGlobalPW = "";
@@ -110,15 +110,20 @@ var initLoginFunctions = function(){
 			$("#loginBoxID").val("");
 			$("#loginBoxPW").val("");
 		}
-		
-		$("#headerLogOut").hide();
-		$("#headerSignUp").show();
-		$("#mainPageTransparentLayer").hide();
-		$("#validPwBox").hide();
-		$("#backgroundBlur").fadeIn(300, function() {});
-		$("#mainPageArea").fadeOut(300, function() {
-			$("#loginBox").fadeIn(800, function() {});
-		});
+        $.ajax({
+            url:"php/logout.php",
+            success: function(){
+                $("#headerLogOut").hide();
+                $("#headerSignUp").show();
+                $("#mainPageTransparentLayer").hide();
+                $("#validPwBox").hide();
+                $("#backgroundBlur").fadeIn(300, function() {});
+                $("#mainPageArea").fadeOut(300, function() {
+                    $("#loginBox").fadeIn(800, function() {});
+                });
+            }
+        });
+
 	});
 };
 
@@ -298,13 +303,14 @@ var initContentsFunctions = function(){
 		console.log(item.children()[1].textContent + " clicked.");
 	});
 	
-	
+
 	userSettingsInit();
 	contentsSearchInit();
 	hardwarePurchaseInit();
 };
 
 var userSettingsInit = function(){
+	
 	$("#mainPageHeaderSettings").click(function(){
 		$("#mainPageTransparentLayer").show();
 		
@@ -326,10 +332,11 @@ var userSettingsInit = function(){
 	});
 	
     $("#validBoxEnter").click(function(){
-    	doValidatePasswordProcess();
+    	doValidatePasswordProcess();  	
     });
-    
+
     var doValidatePasswordProcess = function(){
+  
     	var validPw = $("#validPWBoxPassword").val();
         if(tempGlobalPW == validPw) {
         	
@@ -341,25 +348,16 @@ var userSettingsInit = function(){
     		$("#infoSettingBoxCloseBtn").click(function(){
     			$("#mainPageTransparentLayer").hide();
     			$("#infoSettingBox").hide();
-    			initializeSettingTextBox();
     		});
-    		
-    		/**
-    		 * TODO
-    		 * 유저 테이블에서 기존 정보를 가져와서 text box 를 채워주는 부분 필요 
-    		 */
-//        	$("#settingBoxPW").val();
-//        	$("#settingBoxAddress").val();
-//        	$("#settingBoxEmail").val();
-//        	$("#settingBoxPhoneNum").val();
-    		
+
+            initializeSettingTextBox();
             $("#infoSettingBox").show();
-            
+
         } else {
             alert("You input the wrong password!");
         }
     };
-    
+   
     var isSettingPasswordMatch = false;
 	/**
 	 * setting password check handler
@@ -390,12 +388,34 @@ var userSettingsInit = function(){
         	 * TODO
         	 * 유저 정보 테이블에 업데이트 필요 
         	 */
-        	
-        	$("#mainPageTransparentLayer").hide();
-        	$("#infoSettingBox").fadeOut(700, function(){
-        		initializeSettingTextBox();
-        	});
-    		
+        	 var data = {
+        	 	"type": "setinfo",
+        	 	"settingBoxPW": settingBoxPW,
+        	 	"settingBoxAddress": settingBoxAddress,
+        	 	"settingBoxEmail": settingBoxEmail,
+        	 	"settingBoxPhoneNum": settingBoxPhoneNum
+        	 }
+
+        	 $.ajax({
+				type: "POST",
+				dataType: "json",
+				url: "php/userinfo.php", //Relative or absolute path to response.php file
+				data: data,
+				success: function(response) {
+					if(response.info_result == 'update'){
+						$("#mainPageTransparentLayer").hide();
+        				$("#infoSettingBox").fadeOut(700, function(){
+        					initializeSettingTextBox();
+        				});
+					} else {
+						alert("update fail");
+					}
+				},
+				error: function(response){
+					console.log("user info update error");
+				}
+			});
+
     	} else {
     		alert("Check your typed information again.");
     	}
@@ -410,10 +430,44 @@ var userSettingsInit = function(){
     	$("#settingBoxEmail").val("");
     	$("#settingBoxPhoneNum").val("");
     	$("#settingBoxPasswordCheckDesc").text("Checking your password validation").css("color", "black");
+
+        userInfoInit();
     };
     
 };
 
+var userInfoInit = function(){
+
+    var data = {
+        "type": "getinfo"
+    };
+
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "./php/userinfo.php", //Relative or absolute path to response.php file
+        data: data,
+        success: function(response) {
+            if(response.info_result == 'select'){
+                var userpw = response.password;
+                var useraddress = response.address;
+                var useremail = response.email;
+                var userphone = response.phonenum;
+
+                $("#settingBoxPW").val(userpw);
+                $("#settingBoxAddress").val(useraddress);
+                $("#settingBoxEmail").val(useremail);
+                $("#settingBoxPhoneNum").val(userphone);
+            }else{
+                console.log("some thing wrong");
+            }
+        },
+        error: function(response) {
+            console.log("why error..");
+        }
+    });
+
+}
 var hardwarePurchaseInit = function(){
 	$("#hwPurchaseButton").click(function(){
 		$("#descriptionBox").fadeOut(500,function(){
