@@ -253,6 +253,42 @@ button:focus {
 	display: none;
 }
 
+
+
+#contentsPurchasePopup{
+	position: relative; width: 450px; height: 450px; top: 100px; margin: auto; 
+	display: none; background-color: white; border-radius: 20px; z-index: 5;
+}
+#contentsPurchasePopupClose{
+	background: url(../media/btn_close_normal.png) no-repeat;
+	position: absolute; width: 48px; height: 48px;
+	top: -10px; left: 420px; z-index: 1;
+}
+#contentsPurchasePopupClose:hover{
+	background: url(../media/btn_close_on.png) no-repeat;
+}
+#contentsPurchasePopupClose:active{
+	background: url(../media/btn_close_onClick.png) no-repeat;
+}
+#contentsPurchasePopupIcon{
+	position: relative; float: left; width: 200px; height: auto; margin: 15px 15px 7px;
+}
+#contentsPurchasePopupTitle{
+	position: relative; float: left; width: 200px; height: 100px;
+	text-align: center; font-size: 40px; color: #000000; margin: 30px 5px 0;
+}
+#contentsPurchasePopupPrice{
+	position: relative; float: left; width: 200px; height: 70px;
+	text-align: center; font-size: 30px; color: #000000; margin: 30px 5px 0;
+}
+#contentsPurchasePopupDesc{
+	position: relative; float: left; width: 400px; height: 140px;
+	text-align: center; font-size: 24px; color: #000000; margin: 10px 25px;
+}
+#contentsPurchasePopupBuyBtn{
+	position: relative; width: 130px; height: 45px; font-size: 20px; margin: 5px 160px;
+}
+
 .mainPageContentsItems{
 	position: relative; float: left; width: 150px; height: 180px; cursor: pointer; margin: 15px 15px 0;
 }
