@@ -322,6 +322,14 @@ var initContentsFunctions = function(){
 		        item.append(icon);
 		        item.append(title);
 		        
+		        item.click(function(){
+		        	/**
+		        	 * TODO
+		        	 * 아이템 구매 세부 창 띄워줌 
+		        	 */
+		        	contentsBuyShow(v);
+		        });
+		        
 		        $("#mainPageContentsStore").append(item);
 		    });
 			
@@ -359,6 +367,36 @@ var initContentsFunctions = function(){
 	userSettingsInit();
 	contentsSearchInit();
 	hardwarePurchaseInit();
+};
+
+/**
+ * contents 눌렀을 때 buy 확정 팝업 띄워줌 
+ */
+var contentsBuyShow = function(item){
+	
+	$("#contentsPurchasePopupClose").unbind("click");
+	$("#contentsPurchasePopupClose").click(function(){
+		$("#contentsPurchasePopup").hide();
+	});
+	
+	$("#contentsPurchasePopupIcon").attr("src", "../media/img_game_logo1.png");
+	$("#contentsPurchasePopupTitle").text(item.title);
+	$("#contentsPurchasePopupPrice").text(item.price);
+	$("#contentsPurchasePopupDesc").text(item.desc);
+	
+	$("#contentsPurchasePopupBuyBtn").unbind("click");
+	$("#contentsPurchasePopupBuyBtn").click(function(){
+		
+		$("#paymentInfoEmail").val("");
+		$("#paymentInfoAddress").val("");
+		$("#paymentInfoPhoneNum").val("");
+		$("#paymentInfoCardNum").val("");
+		$("#paymentInfoCVC").val("");
+		$("#paymentBox").fadeIn(1000,function(){});
+		
+	});
+	
+	$("#contentsPurchasePopup").show();
 };
 
 /**
