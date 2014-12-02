@@ -5,6 +5,9 @@
 var tempGlobalID = "";
 var tempGlobalPW = "";
 
+/**
+ * 최초 진입 부분 
+ */
 var init = function(){
     
 	$("#loginBox").fadeIn(1200); // login box fade in
@@ -23,6 +26,9 @@ var init = function(){
 	
 };
 
+/**
+ * Login 동작에 필요한 함수들 초기화 
+ */
 var initLoginFunctions = function(){
 	
 	/**
@@ -127,6 +133,9 @@ var initLoginFunctions = function(){
 	});
 };
 
+/**
+ * signup 동작에 필요한 함수들 초기화 
+ */
 var initSignupFunctions = function(){
 	/**
 	 * signup 버튼 click 이벤트
@@ -142,7 +151,7 @@ var initSignupFunctions = function(){
 	var isIDCheckSuccess = false;
 	$("#signupBoxIDCheck").click(function(){
 		var signupID = $("#signupBoxID").val();
-		//var signupID = "checkID";
+
 		var data = {
 				"type": "checkID",
 				"signupBoxID": signupID
@@ -244,7 +253,17 @@ var initSignupFunctions = function(){
 
 var currentTabPage = "mainPageContentsMyLibrary"; // 처음 로그인 시 My Library 탭에 포커싱 되므로 My Library 로 초기화 
 
+/**
+ * contents 및 my library 부분에서 필요한 함수들 초기화 
+ */
 var initContentsFunctions = function(){
+	
+	/**
+	 * TODO
+	 * 서버에서 contents 항목 받아오는 부분 필요 
+	 */
+	var contentsList = {};
+	
 	/**
 	 * 상단 탭 버튼 누를 시 div 교체 
 	 */
@@ -262,6 +281,22 @@ var initContentsFunctions = function(){
 			$("#paymentBox").hide();
 			$("#descriptionBox").hide();
 			$("#validPwBox").hide();
+			
+			
+			
+			$("#mainPageContentsMyLibrary").empty();
+			$.each(contentsList["MyLibrary"], function(i, v){
+		        
+		        var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":"../media/img_game_logo1.png"}); //content image
+		        var title = $("<div/>", {"class": "mainPageContentsItemTitle"}); //content title
+
+		        var item = $("<div/>", {"class": "mainPageContentsItems", "id":"contents_my_library_"+i});
+		        item.append(icon);
+		        item.append(title);
+		        
+		        $("#mainPageContentsMyLibrary").append(item);
+		    });
+			
 			break;
 		case "mainPageHeaderStore":
 			currentTabPage = "mainPageContentsStore";
@@ -274,6 +309,23 @@ var initContentsFunctions = function(){
 			$("#paymentBox").hide();
 			$("#descriptionBox").hide();
 			$("#validPwBox").hide();
+			
+			
+			
+			$("#mainPageContentsStore").empty();
+			$.each(contentsList["Store"], function(i, v){
+		        
+		        var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":"../media/img_game_logo1.png"}); //content image
+		        var title = $("<div/>", {"class": "mainPageContentsItemTitle"}); //content title
+
+		        var item = $("<div/>", {"class": "mainPageContentsItems", "id":"contents_my_library_"+i});
+		        item.append(icon);
+		        item.append(title);
+		        
+		        $("#mainPageContentsStore").append(item);
+		    });
+			
+			
 			break;
 		case "mainPageHeaderHWPurchase":
 			currentTabPage = "mainPageContentsHWPurchase";
@@ -309,8 +361,14 @@ var initContentsFunctions = function(){
 	hardwarePurchaseInit();
 };
 
+/**
+ * 유저 정보 수정 부분에 필요한 함수들 초기화 
+ */
 var userSettingsInit = function(){
 	
+	/**
+	 * header 쪽에 있는 setting 버튼 클릭 이벤트 
+	 */
 	$("#mainPageHeaderSettings").click(function(){
 		$("#mainPageTransparentLayer").show();
 		
@@ -385,8 +443,7 @@ var userSettingsInit = function(){
         	var settingBoxPhoneNum = $("#settingBoxPhoneNum").val();
         	
         	/**
-        	 * TODO
-        	 * 유저 정보 테이블에 업데이트 필요 
+        	 * 유저 정보 테이블에 업데이트 
         	 */
         	 var data = {
         	 	"type": "setinfo",
@@ -394,7 +451,7 @@ var userSettingsInit = function(){
         	 	"settingBoxAddress": settingBoxAddress,
         	 	"settingBoxEmail": settingBoxEmail,
         	 	"settingBoxPhoneNum": settingBoxPhoneNum
-        	 }
+        	 };
 
         	 $.ajax({
 				type: "POST",
@@ -436,6 +493,9 @@ var userSettingsInit = function(){
     
 };
 
+/**
+ * 서버에서 유저 정보 받아와서 화면에 출력 
+ */
 var userInfoInit = function(){
 
     var data = {
@@ -467,7 +527,11 @@ var userInfoInit = function(){
         }
     });
 
-}
+};
+
+/**
+ * hardware 구입 과정에 필요한 함수들 초기화 
+ */
 var hardwarePurchaseInit = function(){
 	$("#hwPurchaseButton").click(function(){
 		$("#descriptionBox").fadeOut(500,function(){
