@@ -5,7 +5,7 @@
   $uid=$_SESSION['uid'];
   $type=$_POST['type'];
   //사용자 uid 받아옴
-  if($type=='getinfo')
+  if($type=='getInfo')
   {
     $query = "SELECT * FROM user WHERE uid='$uid'";
     $result=$mysqli->query($query);
@@ -27,7 +27,7 @@
     
   }
 //-----------------------------------------------
-  else if($type=='setinfo')
+  else if($type=='setInfo')
   {   
     $password = $_POST['settingBoxPW']; 
     $address = $_POST['settingBoxAddress'];

@@ -3,7 +3,7 @@
 	include "dbconn.php";
 
 	$uid=$_SESSION['uid'];
-	$query = "SELECT * FROM user_contents_info WHERE uid='$uid'";
+	$query = "SELECT cid FROM user_contents_info WHERE uid='$uid'";
 	$result=$mysqli->query($query);
 
 	$row=$result->fetch_array(MYSQLI_NUM);
