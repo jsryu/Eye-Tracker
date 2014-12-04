@@ -656,7 +656,28 @@ var hardwarePurchaseInit = function(){
 		var paymentInfoPhoneNum = $("#paymentInfoPhoneNum").val();
 		var paymentInfoCardNum = $("#paymentInfoCardNum").val();
 		var paymentInfoCVC = $("#paymentInfoCVC").val();
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "./php/insert_buyTable.php", //Relative or absolute path to response.php file
+            data: data,
+            success: function(response) {
+                if(response.info_result == 'success'){
 
+
+                    ///////////////////////고칠부분!!!!
+
+                    //////////////////////
+
+                    /////////////////////////////
+                }else{
+                    console.log("some thing wrong");
+                }
+            },
+            error: function(response) {
+                console.log("why error..");
+            }
+        });
 		/**
 		 * TODO
 		 * payment 이력 테이블에 insert
