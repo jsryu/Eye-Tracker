@@ -1,3 +1,16 @@
+// Eye-Tracker Project Web Platform
+//
+// Author: Jaesung Ryu
+// Creation date: 2014/10/24
+//
+// © Team Confidence
+//
+// Modification history
+// Version 	Modifier 	Date 		Change Reason
+// 1.0.1 	Jaesung Ryu 2014/11/05 	Add sign up/contents/log out feature etc.
+// 1.0.2	Jaesung Ryu 2014/11/16 	Add hardware purchase feature etc.
+// 1.0.3	Jaesung Ryu	2014/12/02	Add contents detail feature and DB feature etc.
+
 /**
  * TODO
  * 전역변수로 두지 말고, DB에서 가져오는 형태로 변경해야함 test
@@ -275,18 +288,12 @@ var initContentsFunctions = function(){
 	$.ajax({
 		type: "GET",
 		dataType: "json",
-		url: "php/contentsinfo.php", //Relative or absolute path to response.php file
+		url: "php/get_all_contents.php", //Relative or absolute path to response.php file
 		success: function(response) {
-			if(response.result == 'success'){
-				alert("success");
-				$("#signupBox").hide();
-				$("#loginBox").fadeIn(500);
-			} else {
-				alert("signup fail");
-			}
+            contentsList = response;
 		},
 		error: function(response){
-			console.log("signup error");
+			console.log("get contents error");
 		}
 	});
 	
@@ -312,7 +319,7 @@ var initContentsFunctions = function(){
 			
 			
 			$("#mainPageContentsMyLibrary").empty();
-			$.each(contentsList["MyLibrary"], function(i, v){
+			$.each(contentsList, function(i, v){
 		        
 //		        var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":"../media/img_game_logo1.png"}); //content image
 				var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":v.thumbnail}); //content image
@@ -341,7 +348,7 @@ var initContentsFunctions = function(){
 			
 			
 			$("#mainPageContentsStore").empty();
-			$.each(contentsList["Store"], function(i, v){
+			$.each(contentsList, function(i, v){
 		        
 		        var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":"../media/img_game_logo1.png"}); //content image
 		        var title = $("<div/>", {"class": "mainPageContentsItemTitle"}); //content title
@@ -408,7 +415,7 @@ var contentsBuyShow = function(item){
 	});
 	
 	$("#contentsPurchasePopupIcon").attr("src", "../media/img_game_logo1.png");
-	$("#contentsPurchasePopupTitle").text(item.contents);
+	$("#contentsPurchasePopupTitle").text(item.contentName);
 	$("#contentsPurchasePopupPrice").text(item.price);
 	$("#contentsPurchasePopupDesc").text(item.description);
 	
@@ -601,9 +608,9 @@ var userInfoInit = function(){
 var hardwarePurchaseInit = function(){
 	$("#hwPurchaseButton").click(function(){
 		$("#descriptionBox").fadeOut(500,function(){
-			$("#paymentInfoEmail").val("");
-			$("#paymentInfoAddress").val("");
-			$("#paymentInfoPhoneNum").val("");
+			$("#paymentInfoEmail").val(userInfoArray.email);
+			$("#paymentInfoAddress").val(userInfoArray.address);
+			$("#paymentInfoPhoneNum").val(userInfoArray.phonenumber);
 			$("#paymentInfoCardNum").val("");
 			$("#paymentInfoCVC").val("");
 			$("#paymentBox").fadeIn(1000,function(){});
@@ -615,36 +622,36 @@ var hardwarePurchaseInit = function(){
 			$("#descriptionBox").fadeIn(1000,function(){});
 		});
 	});
-	
+
 	$("#payCheckOutBtn").click(function(){
-		
+
 		var paymentInfoEmail = $("#paymentInfoEmail").val();
 		var paymentInfoAddress = $("#paymentInfoAddress").val();
 		var paymentInfoPhoneNum = $("#paymentInfoPhoneNum").val();
 		var paymentInfoCardNum = $("#paymentInfoCardNum").val();
 		var paymentInfoCVC = $("#paymentInfoCVC").val();
-		
+
 		/**
 		 * TODO
-		 * payment 이력 테이블에 insert 
+		 * payment 이력 테이블에 insert
 		 */
-		
+
 		$("#backgroundBlur").fadeOut(1000, function() {});
 		$("#paymentBox").fadeOut(1000,function() {
 			currentTabPage = "mainPageContentsMyLibrary";
 			$("#mainPageSearchContainer").show();
-			
+
 			$("#mainPageContentsMyLibrary").show();
 			$("#mainPageContentsStore").hide();
 			$("#mainPageContentsHWPurchase").hide();
-			
+
 			$("#paymentBox").hide();
 			$("#descriptionBox").hide();
 			$("#validPwBox").hide();
-			
+
 			$("#mainPageArea").fadeIn(300, function() {});
 		});
-		
+
 	});
 };
 

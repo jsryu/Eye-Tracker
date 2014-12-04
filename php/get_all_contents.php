@@ -9,6 +9,8 @@
     $query = "SELECT * FROM contents";
     $result=$mysqli->query($query);
 
+    $row=$result->fetch_array(MYSQLI_ASSOC);
+    
     while($row=$result->fetch_array(MYSQLI_ASSOC))
     {
         $rows[] = $row;
