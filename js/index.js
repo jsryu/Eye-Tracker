@@ -11,13 +11,7 @@
 // 1.0.2	Jaesung Ryu 2014/11/16 	Add hardware purchase feature etc.
 // 1.0.3	Jaesung Ryu	2014/12/02	Add contents detail feature and DB feature etc.
 
-/**
- * TODO
- * 전역변수로 두지 말고, DB에서 가져오는 형태로 변경해야함 test
- */
-var tempGlobalID = "";
-var tempGlobalPW = "";
-var userInfoArray = {};
+var userInfoArray = {}; // user 정보를 담고있는 객체 
 /**
  * 최초 진입 부분 
  */
@@ -28,12 +22,8 @@ var init = function(){
 	initLoginFunctions();
 	initSignupFunctions();
 	
-	$("#footerSearchMyInfo").click(function(){
-		console.log("click Find your ID/PW");
-	});
-	
 	$("#footerPrivacy").click(function(){
-		console.log("click privacy");
+		alert("click privacy. 필요 없으면 그냥 지웁시다.");
 	});
 	
 };
@@ -60,12 +50,12 @@ var initLoginFunctions = function(){
 	});
 	
 	var doLoginProcess = function(){
-		tempGlobalID = $("#loginBoxID").val();
-		tempGlobalPW = $("#loginBoxPW").val();
+		
+		$("#mainPageTransparentLayer").show();
 		
 		var data = {
-				"user_id": tempGlobalID,
-				"user_pw": tempGlobalPW
+				"user_id": $("#loginBoxID").val(),
+				"user_pw": $("#loginBoxPW").val()
 		};
 		
 		/**
@@ -84,6 +74,9 @@ var initLoginFunctions = function(){
 					userInfoArray.address = response.address;
                     userInfoArray.email = response.email;
                     userInfoArray.phonenumber = response.phonenumber;
+                    userInfoArray.id = $("#loginBoxID").val();
+                    userInfoArray.pw = $("#loginBoxPW").val();
+                    
 					$("#headerSignUp").hide();
 					$("#headerLogOut").show();
 					$("#backgroundBlur").fadeOut(700, function() {});
@@ -100,7 +93,9 @@ var initLoginFunctions = function(){
 						$("#descriptionBox").hide();
 						$("#validPwBox").hide();
 						
-						$("#mainPageArea").fadeIn(300, function() {});
+						$("#mainPageArea").fadeIn(300, function() {
+							$("#mainPageTransparentLayer").hide();
+						});
 					});
 					
 				} else {
@@ -124,8 +119,7 @@ var initLoginFunctions = function(){
 	
 	$("#headerLogOut").click(function(){
 		/**
-		 * TODO
-		 * login session 끊어주는 작업 필요 
+		 * login session 끊어줌  
 		 */
 		
 		if($("#loginBoxKeepLoginCheckImg").attr("class") == "loginCheckImgUnchecked"){
@@ -142,6 +136,7 @@ var initLoginFunctions = function(){
                 $("#headerSignUp").show();
                 $("#mainPageTransparentLayer").hide();
                 $("#validPwBox").hide();
+                $("#contentsPurchasePopup").hide();
                 $("#backgroundBlur").fadeIn(300, function() {});
                 $("#mainPageArea").fadeOut(300, function() {
                     $("#loginBox").fadeIn(800, function() {});
@@ -288,7 +283,7 @@ var setContentsLists = function(){
 			$.each(myLibraryList, function(i, v){
 		        
 				var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":v.thumbnail}); //content image
-		        var title = $("<div/>", {"class": "mainPageContentsItemTitle"}).text(v.contents); //content title
+		        var title = $("<div/>", {"class": "mainPageContentsItemTitle"}).text(v.contentName); //content title
 
 		        var item = $("<div/>", {"class": "mainPageContentsItems", "id":"contents_my_library_"+i});
 		        item.append(icon);
@@ -353,7 +348,7 @@ var initContentsFunctions = function(){
 			$.each(myLibraryList, function(i, v){
 		        
 				var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":v.thumbnail}); //content image
-		        var title = $("<div/>", {"class": "mainPageContentsItemTitle"}).text(v.contents); //content title
+		        var title = $("<div/>", {"class": "mainPageContentsItemTitle"}).text(v.contentName); //content title
 
 		        var item = $("<div/>", {"class": "mainPageContentsItems", "id":"contents_my_library_"+i});
 		        item.append(icon);
@@ -385,7 +380,7 @@ var initContentsFunctions = function(){
 			$.each(contentsList, function(i, v){
 		        
 		        var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":v.thumbnail}); //content image
-		        var title = $("<div/>", {"class": "mainPageContentsItemTitle"}).text(v.contents); //content title
+		        var title = $("<div/>", {"class": "mainPageContentsItemTitle"}).text(v.contentName); //content title
 
 		        var item = $("<div/>", {"class": "mainPageContentsItems", "id":"contents_my_library_"+i});
 		        item.append(icon);
@@ -500,10 +495,10 @@ var userSettingsInit = function(){
     var doValidatePasswordProcess = function(){
   
     	var validPw = $("#validPWBoxPassword").val();
-        if(tempGlobalPW == validPw) {
+        if(userInfoArray.pw == validPw) {
         	
         	$("#mainPageTransparentLayer").show();
-            $("#settingBoxID").val(tempGlobalID);
+            $("#settingBoxID").val(userInfoArray.id);
             $("#validPwBox").hide();
             
             $("#infoSettingBoxCloseBtn").unbind("click");
@@ -584,7 +579,7 @@ var userSettingsInit = function(){
     });
     
     var initializeSettingTextBox = function(){
-    	$("#settingBoxID").val(tempGlobalID);
+    	$("#settingBoxID").val(userInfoArray.id);
     	$("#settingBoxPW").val("");
     	$("#settingBoxPWCheck").val("");
     	$("#settingBoxAddress").val(userInfoArray.address);
