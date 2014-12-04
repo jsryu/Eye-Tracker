@@ -1,4 +1,5 @@
 <?php
+	session_start();
 
 	include "dbconn.php";
 
@@ -16,8 +17,9 @@
 
 		$res->free();
 	}
-
-	echo json_encode($rows);
+	
+	if(is_null($rows)) echo json_encode(Array());
+	else echo json_encode($rows);
 
 	$result->free();
 	$mysqli->close();
