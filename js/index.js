@@ -1,3 +1,15 @@
+// Eye-Tracker Project Web Platform
+//
+// Author: Jaesung Ryu
+// Creation date: 2014/10/24
+//
+// © Team Confidence
+//
+// Modification history
+// Version 	Modifier 	Date 		Change Reason
+// 1.0.1 	Jaesung Ryu 2014/11/11 	Add header Submitted to CM
+// 1.0.2	Jaesung Ryu 2014/11/11 	Add header Submitted to CM
+
 /**
  * TODO
  * 전역변수로 두지 말고, DB에서 가져오는 형태로 변경해야함 test
