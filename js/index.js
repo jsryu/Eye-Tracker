@@ -27,7 +27,6 @@ var init = function(){
 	
 	initLoginFunctions();
 	initSignupFunctions();
-	initContentsFunctions();
 	
 	$("#footerSearchMyInfo").click(function(){
 		console.log("click Find your ID/PW");
@@ -80,6 +79,8 @@ var initLoginFunctions = function(){
 			success: function(response) {
 				if(response.result == 'success'){
 					console.log("login success");
+					initContentsFunctions();
+					
 					userInfoArray.address = response.address;
                     userInfoArray.email = response.email;
                     userInfoArray.phonenumber = response.phonenumber;
@@ -281,7 +282,7 @@ var initContentsFunctions = function(){
 	 * 서버에서 contents 항목 받아오는 부분 필요 
 	 */
 	var contentsList = {};
-
+	var myLibraryList = {};
 	/**
 	 * contents 내용 서버에서 받아오기  
 	 */
@@ -296,7 +297,17 @@ var initContentsFunctions = function(){
 			console.log("get contents error");
 		}
 	});
-	
+	$.ajax({
+		type: "GET",
+		dataType: "json",
+		url: "php/get_buy_contents.php", //Relative or absolute path to response.php file
+		success: function(response) {
+			myLibraryList = response;
+		},
+		error: function(response){
+			console.log("get buy contents error");
+		}
+	});
 	
 	/**
 	 * 상단 탭 버튼 누를 시 div 교체 
@@ -319,7 +330,7 @@ var initContentsFunctions = function(){
 			
 			
 			$("#mainPageContentsMyLibrary").empty();
-			$.each(contentsList, function(i, v){
+			$.each(myLibarayList, function(i, v){
 		        
 //		        var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":"../media/img_game_logo1.png"}); //content image
 				var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":v.thumbnail}); //content image
@@ -350,8 +361,8 @@ var initContentsFunctions = function(){
 			$("#mainPageContentsStore").empty();
 			$.each(contentsList, function(i, v){
 		        
-		        var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":"../media/img_game_logo1.png"}); //content image
-		        var title = $("<div/>", {"class": "mainPageContentsItemTitle"}); //content title
+		        var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":v.thumbnail}); //content image
+		        var title = $("<div/>", {"class": "mainPageContentsItemTitle"}).text(v.contents); //content title
 
 		        var item = $("<div/>", {"class": "mainPageContentsItems", "id":"contents_my_library_"+i});
 		        item.append(icon);
