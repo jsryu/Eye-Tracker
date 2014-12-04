@@ -7,8 +7,9 @@
 //
 // Modification history
 // Version 	Modifier 	Date 		Change Reason
-// 1.0.1 	Jaesung Ryu 2014/11/11 	Add header Submitted to CM
-// 1.0.2	Jaesung Ryu 2014/11/11 	Add header Submitted to CM
+// 1.0.1 	Jaesung Ryu 2014/11/05 	Add sign up/contents/log out feature etc.
+// 1.0.2	Jaesung Ryu 2014/11/16 	Add hardware purchase feature etc.
+// 1.0.3	Jaesung Ryu	2014/12/02	Add contents detail feature and DB feature etc.
 
 /**
  * TODO
