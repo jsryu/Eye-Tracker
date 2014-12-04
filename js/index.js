@@ -4,7 +4,7 @@
  */
 var tempGlobalID = "";
 var tempGlobalPW = "";
-
+var userInfoArray = {};
 /**
  * 최초 진입 부분 
  */
@@ -67,7 +67,9 @@ var initLoginFunctions = function(){
 			success: function(response) {
 				if(response.result == 'success'){
 					console.log("login success");
-					
+					userInfoArray.address = response.address;
+                    userInfoArray.email = response.email;
+                    userInfoArray.phonenumber = response.phonenumber;
 					$("#headerSignUp").hide();
 					$("#headerLogOut").show();
 					$("#backgroundBlur").fadeOut(700, function() {});
@@ -119,6 +121,9 @@ var initLoginFunctions = function(){
         $.ajax({
             url:"php/logout.php",
             success: function(){
+                userInfoArray.address = '';
+                userInfoArray.email = '';
+                userInfoArray.phonenumber = '';
                 $("#headerLogOut").hide();
                 $("#headerSignUp").show();
                 $("#mainPageTransparentLayer").hide();
@@ -273,7 +278,7 @@ var initContentsFunctions = function(){
 		url: "php/contentsinfo.php", //Relative or absolute path to response.php file
 		success: function(response) {
 			if(response.result == 'success'){
-				alert("signup success");
+				alert("success");
 				$("#signupBox").hide();
 				$("#loginBox").fadeIn(500);
 			} else {
@@ -410,9 +415,9 @@ var contentsBuyShow = function(item){
 	$("#contentsPurchasePopupBuyBtn").unbind("click");
 	$("#contentsPurchasePopupBuyBtn").click(function(){
 		
-		$("#paymentInfoEmail").val("");
-		$("#paymentInfoAddress").val("");
-		$("#paymentInfoPhoneNum").val("");
+		$("#paymentInfoEmail").val(userInfoArray.email);
+		$("#paymentInfoAddress").val(userInfoArray.address);
+		$("#paymentInfoPhoneNum").val(userInfoArray.phonenumber);
 		$("#paymentInfoCardNum").val("");
 		$("#paymentInfoCVC").val("");
 		$("#paymentBox").fadeIn(1000,function(){});
@@ -541,12 +546,12 @@ var userSettingsInit = function(){
     });
     
     var initializeSettingTextBox = function(){
-    	$("#settingBoxID").val("");
+    	$("#settingBoxID").val(tempGlobalID);
     	$("#settingBoxPW").val("");
     	$("#settingBoxPWCheck").val("");
-    	$("#settingBoxAddress").val("");
-    	$("#settingBoxEmail").val("");
-    	$("#settingBoxPhoneNum").val("");
+    	$("#settingBoxAddress").val(userInfoArray.address);
+    	$("#settingBoxEmail").val(userInfoArray.email);
+    	$("#settingBoxPhoneNum").val(userInfoArray.phonenumber);
     	$("#settingBoxPasswordCheckDesc").text("Checking your password validation").css("color", "black");
 
         userInfoInit();

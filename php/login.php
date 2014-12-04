@@ -1,11 +1,7 @@
 <?php
   
   #connnect DB
-  define('DB_HOST', 'localhost');
-  define('DB_NAME', 'blickdb');
-  define('DB_USER','blickDB'); 
-  define('DB_PASSWORD','blick');
-
+  include_once "dbconn.php";
   $mysqli=new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
   if (mysqli_connect_error()) {
     exit('Connect Error (' . mysqli_connect_errno() . ') '. mysqli_connect_error());
@@ -41,13 +37,16 @@
   	}
   	else{
 	  	$uid=$row["uid"];
-	
+	    $return_arr['address'] = $row["address"];
+	    $return_arr['phonenumber'] = $row["phonenumber"];
+	    $return_arr['email'] = $row["email"];
 	  	session_start();
 	  	$_SESSION['user_id'] = $user;
 	    $_SESSION['uid'] = $uid;
 	    $_SESSION['user_pw'] = $user_pw;
 	    
 	    $return_arr['result'] = 'success';
+
 		echo json_encode($return_arr);
 	}
 
