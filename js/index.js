@@ -598,20 +598,20 @@ var userSettingsInit = function(){
 var userInfoInit = function(){
 
     var data = {
-        "type": "getinfo"
+        "type": "getInfo"
     };
 
     $.ajax({
         type: "POST",
         dataType: "json",
-        url: "./php/userinfo.php", //Relative or absolute path to response.php file
+        url: "./php/userInfo.php", //Relative or absolute path to response.php file
         data: data,
         success: function(response) {
             if(response.info_result == 'select'){
                 var userpw = response.password;
                 var useraddress = response.address;
                 var useremail = response.email;
-                var userphone = response.phonenum;
+                var userphone = response.phonenumber;
 
                 $("#settingBoxPW").val(userpw);
                 $("#settingBoxAddress").val(useraddress);
@@ -656,18 +656,26 @@ var hardwarePurchaseInit = function(){
 		var paymentInfoPhoneNum = $("#paymentInfoPhoneNum").val();
 		var paymentInfoCardNum = $("#paymentInfoCardNum").val();
 		var paymentInfoCVC = $("#paymentInfoCVC").val();
+        var data = {
+            "purchaseType " : "hardware"        // hardware or contents
+        };
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: "./php/insert_buyTable.php", //Relative or absolute path to response.php file
+            url: "./php/insert_buyTable.php",
             data: data,
             success: function(response) {
-                if(response.info_result == 'success'){
+                console.log(response.result);
+                if(response.result == 'success'){
 
 
                     ///////////////////////고칠부분!!!!
 
                     //////////////////////
+                    /**
+                     * TODO
+                     * payment 이력 테이블에 insert
+                     */
 
                     /////////////////////////////
                 }else{
@@ -675,13 +683,10 @@ var hardwarePurchaseInit = function(){
                 }
             },
             error: function(response) {
-                console.log("why error..");
+                console.log("why error..!!!!!");
             }
         });
-		/**
-		 * TODO
-		 * payment 이력 테이블에 insert
-		 */
+
 
 		$("#backgroundBlur").fadeOut(1000, function() {});
 		$("#paymentBox").fadeOut(1000,function() {

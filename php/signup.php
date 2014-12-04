@@ -1,10 +1,5 @@
 <?php
-  define('DB_HOST', 'localhost');
-  define('DB_NAME', 'blickdb');
-  define('DB_USER','blickDB'); 
-  define('DB_PASSWORD','blick');
-
-  $mysqli=new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
+  include_once "dbconn.php";
   if (mysqli_connect_error()) {
     exit('Connect Error (' . mysqli_connect_errno() . ') '. mysqli_connect_error());
   }
