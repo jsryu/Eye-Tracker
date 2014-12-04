@@ -447,8 +447,9 @@ button:focus {
 
 #paymentBox{
 	position: relative; margin: 6% auto;
-	width: 430px; height: 450px; border-radius: 40px;
+	width: 430px; height: 460px; border-radius: 40px;
 	background-color: #FFFFFF; display: none;
+	z-index: 7; top: 0;
 }
 #paymentBoxCloseBtn{
 	background: url(../media/btn_close_normal.png) no-repeat;
