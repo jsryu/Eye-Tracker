@@ -263,6 +263,28 @@ var initContentsFunctions = function(){
 	 * 서버에서 contents 항목 받아오는 부분 필요 
 	 */
 	var contentsList = {};
+
+	/**
+	 * contents 내용 서버에서 받아오기  
+	 */
+	$.ajax({
+		type: "GET",
+		dataType: "json",
+		url: "php/contentsinfo.php", //Relative or absolute path to response.php file
+		success: function(response) {
+			if(response.result == 'success'){
+				alert("signup success");
+				$("#signupBox").hide();
+				$("#loginBox").fadeIn(500);
+			} else {
+				alert("signup fail");
+			}
+		},
+		error: function(response){
+			console.log("signup error");
+		}
+	});
+	
 	
 	/**
 	 * 상단 탭 버튼 누를 시 div 교체 
@@ -287,8 +309,9 @@ var initContentsFunctions = function(){
 			$("#mainPageContentsMyLibrary").empty();
 			$.each(contentsList["MyLibrary"], function(i, v){
 		        
-		        var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":"../media/img_game_logo1.png"}); //content image
-		        var title = $("<div/>", {"class": "mainPageContentsItemTitle"}); //content title
+//		        var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":"../media/img_game_logo1.png"}); //content image
+				var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":v.thumbnail}); //content image
+		        var title = $("<div/>", {"class": "mainPageContentsItemTitle"}).text(v.contents); //content title
 
 		        var item = $("<div/>", {"class": "mainPageContentsItems", "id":"contents_my_library_"+i});
 		        item.append(icon);
@@ -380,9 +403,9 @@ var contentsBuyShow = function(item){
 	});
 	
 	$("#contentsPurchasePopupIcon").attr("src", "../media/img_game_logo1.png");
-	$("#contentsPurchasePopupTitle").text(item.title);
+	$("#contentsPurchasePopupTitle").text(item.contents);
 	$("#contentsPurchasePopupPrice").text(item.price);
-	$("#contentsPurchasePopupDesc").text(item.desc);
+	$("#contentsPurchasePopupDesc").text(item.description);
 	
 	$("#contentsPurchasePopupBuyBtn").unbind("click");
 	$("#contentsPurchasePopupBuyBtn").click(function(){
