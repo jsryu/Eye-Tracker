@@ -343,6 +343,7 @@ var initContentsFunctions = function(){
 			$("#paymentBox").hide();
 			$("#descriptionBox").hide();
 			$("#validPwBox").hide();
+			$("#mainPageTransparentLayer").hide();
 			
 			$("#mainPageContentsMyLibrary").empty();
 			$.each(myLibraryList, function(i, v){
@@ -375,6 +376,7 @@ var initContentsFunctions = function(){
 			$("#paymentBox").hide();
 			$("#descriptionBox").hide();
 			$("#validPwBox").hide();
+			$("#mainPageTransparentLayer").hide();
 			
 			$("#mainPageContentsStore").empty();
 			$.each(contentsList, function(i, v){
@@ -405,6 +407,7 @@ var initContentsFunctions = function(){
 			$("#mainPageContentsMyLibrary").hide();
 			$("#mainPageContentsStore").hide();
 			$("#mainPageContentsHWPurchase").show();
+			$("#mainPageTransparentLayer").hide();
 			
 			$("#backgroundBlur").fadeIn(1000,function(){});
 			$("#descriptionBox").fadeIn(1000,function(){});
@@ -444,16 +447,12 @@ var contentsBuyShow = function(item){
 	$("#contentsPurchasePopupBuyBtn").unbind("click");
 	$("#contentsPurchasePopupBuyBtn").click(function(){
 		
-		/**
-		 * TODO
-		 * paymentBox html 위치 조정 필요 
-		 */
 		$("#paymentInfoEmail").val(userInfoArray.email);
 		$("#paymentInfoAddress").val(userInfoArray.address);
 		$("#paymentInfoPhoneNum").val(userInfoArray.phonenumber);
 		$("#paymentInfoCardNum").val("");
 		$("#paymentInfoCVC").val("");
-		$("#paymentBox").fadeIn(1000,function(){});
+		$("#paymentBox").css("top", "-440px").fadeIn(1000,function(){});
 		
 	});
 	
@@ -639,12 +638,13 @@ var hardwarePurchaseInit = function(){
 			$("#paymentInfoPhoneNum").val(userInfoArray.phonenumber);
 			$("#paymentInfoCardNum").val("");
 			$("#paymentInfoCVC").val("");
-			$("#paymentBox").fadeIn(1000,function(){});
+			$("#paymentBox").css("top", 0).fadeIn(1000,function(){});
 		});
 	});
 
 	$("#paymentBoxCloseBtn").click(function(){
-		$("#paymentBox").fadeOut(500,function(){
+		$("#contentsPurchasePopup").hide();
+		$("#paymentBox").fadeOut(0,function(){
 			$("#descriptionBox").fadeIn(1000,function(){});
 		});
 	});
@@ -696,6 +696,7 @@ var hardwarePurchaseInit = function(){
 			$("#mainPageContentsMyLibrary").show();
 			$("#mainPageContentsStore").hide();
 			$("#mainPageContentsHWPurchase").hide();
+			$("#mainPageTransparentLayer").hide();
 
 			$("#paymentBox").hide();
 			$("#descriptionBox").hide();
