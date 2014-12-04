@@ -79,7 +79,7 @@ var initLoginFunctions = function(){
 			success: function(response) {
 				if(response.result == 'success'){
 					console.log("login success");
-					initContentsFunctions();
+					setContentsLists();
 					
 					userInfoArray.address = response.address;
                     userInfoArray.email = response.email;
@@ -270,22 +270,46 @@ var initSignupFunctions = function(){
 	});
 };
 
-var currentTabPage = "mainPageContentsMyLibrary"; // 처음 로그인 시 My Library 탭에 포커싱 되므로 My Library 로 초기화 
-
+var myLibraryList = {};
+var contentsList = {};
 /**
- * contents 및 my library 부분에서 필요한 함수들 초기화 
+ * 서버에서 contents 항목 받아오는 부분  
  */
-var initContentsFunctions = function(){
+var setContentsLists = function(){
 	
-	/**
-	 * TODO
-	 * 서버에서 contents 항목 받아오는 부분 필요 
-	 */
-	var contentsList = {};
-	var myLibraryList = {};
-	/**
-	 * contents 내용 서버에서 받아오기  
-	 */
+	$.ajax({
+		type: "GET",
+		dataType: "json",
+		url: "php/get_buy_contents.php", //Relative or absolute path to response.php file
+		success: function(response) {
+			myLibraryList = response;
+			
+			$("#mainPageContentsMyLibrary").empty();
+			$.each(myLibraryList, function(i, v){
+		        
+				var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":v.thumbnail}); //content image
+		        var title = $("<div/>", {"class": "mainPageContentsItemTitle"}).text(v.contents); //content title
+
+		        var item = $("<div/>", {"class": "mainPageContentsItems", "id":"contents_my_library_"+i});
+		        item.append(icon);
+		        item.append(title);
+		        
+		        /**
+		         * TODO
+		         * 이곳의 item 은 구매한 contents 항목들임.
+		         * 클릭 시 플레이 가능하게 처리 필요 
+		         */
+		        
+		        $("#mainPageContentsMyLibrary").append(item);
+		    });
+			
+			initContentsFunctions(); //My Library list 가 모두 받아지고 나서 필요 함수들 초기화 
+		},
+		error: function(response){
+			console.log("get buy contents error");
+		}
+	});
+	
 	$.ajax({
 		type: "GET",
 		dataType: "json",
@@ -297,17 +321,15 @@ var initContentsFunctions = function(){
 			console.log("get contents error");
 		}
 	});
-	$.ajax({
-		type: "GET",
-		dataType: "json",
-		url: "php/get_buy_contents.php", //Relative or absolute path to response.php file
-		success: function(response) {
-			myLibraryList = response;
-		},
-		error: function(response){
-			console.log("get buy contents error");
-		}
-	});
+	
+};
+
+var currentTabPage = "mainPageContentsMyLibrary"; // 처음 로그인 시 My Library 탭에 포커싱 되므로 My Library 로 초기화 
+
+/**
+ * contents 및 my library 부분에서 필요한 함수들 초기화 
+ */
+var initContentsFunctions = function(){
 	
 	/**
 	 * 상단 탭 버튼 누를 시 div 교체 
@@ -327,18 +349,21 @@ var initContentsFunctions = function(){
 			$("#descriptionBox").hide();
 			$("#validPwBox").hide();
 			
-			
-			
 			$("#mainPageContentsMyLibrary").empty();
-			$.each(myLibarayList, function(i, v){
+			$.each(myLibraryList, function(i, v){
 		        
-//		        var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":"../media/img_game_logo1.png"}); //content image
 				var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":v.thumbnail}); //content image
 		        var title = $("<div/>", {"class": "mainPageContentsItemTitle"}).text(v.contents); //content title
 
 		        var item = $("<div/>", {"class": "mainPageContentsItems", "id":"contents_my_library_"+i});
 		        item.append(icon);
 		        item.append(title);
+		        
+		        /**
+		         * TODO
+		         * 이곳의 item 은 구매한 contents 항목들임.
+		         * 클릭 시 플레이 가능하게 처리 필요 
+		         */
 		        
 		        $("#mainPageContentsMyLibrary").append(item);
 		    });
@@ -356,8 +381,6 @@ var initContentsFunctions = function(){
 			$("#descriptionBox").hide();
 			$("#validPwBox").hide();
 			
-			
-			
 			$("#mainPageContentsStore").empty();
 			$.each(contentsList, function(i, v){
 		        
@@ -370,7 +393,6 @@ var initContentsFunctions = function(){
 		        
 		        item.click(function(){
 		        	/**
-		        	 * TODO
 		        	 * 아이템 구매 세부 창 띄워줌 
 		        	 */
 		        	contentsBuyShow(v);
@@ -401,15 +423,6 @@ var initContentsFunctions = function(){
 		
 	});
 	
-	/**
-	 * 콘텐츠 클릭 시 이벤트 
-	 */
-	$(".mainPageContentsItems").click(function(){
-		var item = $(this);
-		console.log(item.children()[1].textContent + " clicked.");
-	});
-	
-
 	userSettingsInit();
 	contentsSearchInit();
 	hardwarePurchaseInit();
@@ -420,19 +433,26 @@ var initContentsFunctions = function(){
  */
 var contentsBuyShow = function(item){
 	
+	$("#mainPageTransparentLayer").show();
+	
 	$("#contentsPurchasePopupClose").unbind("click");
 	$("#contentsPurchasePopupClose").click(function(){
 		$("#contentsPurchasePopup").hide();
+		$("#mainPageTransparentLayer").hide();
 	});
 	
-	$("#contentsPurchasePopupIcon").attr("src", "../media/img_game_logo1.png");
+	$("#contentsPurchasePopupIcon").attr("src", item.thumbnail);
 	$("#contentsPurchasePopupTitle").text(item.contentName);
-	$("#contentsPurchasePopupPrice").text(item.price);
+	$("#contentsPurchasePopupPrice").text(item.price + " Won").digits();
 	$("#contentsPurchasePopupDesc").text(item.description);
 	
 	$("#contentsPurchasePopupBuyBtn").unbind("click");
 	$("#contentsPurchasePopupBuyBtn").click(function(){
 		
+		/**
+		 * TODO
+		 * paymentBox html 위치 조정 필요 
+		 */
 		$("#paymentInfoEmail").val(userInfoArray.email);
 		$("#paymentInfoAddress").val(userInfoArray.address);
 		$("#paymentInfoPhoneNum").val(userInfoArray.phonenumber);
@@ -699,4 +719,11 @@ var contentsSearchInit = function(){
 	searchBox.removeEventListener("search", onSearchHandler, false);
 	searchBox.addEventListener("search", onSearchHandler, false);
 	
+};
+
+//세 자리마다 comma 추가
+$.fn.digits = function(){ 
+	return this.each(function(){ 
+		$(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") ); 
+	});
 };
