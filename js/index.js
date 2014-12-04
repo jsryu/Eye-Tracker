@@ -11,13 +11,7 @@
 // 1.0.2	Jaesung Ryu 2014/11/16 	Add hardware purchase feature etc.
 // 1.0.3	Jaesung Ryu	2014/12/02	Add contents detail feature and DB feature etc.
 
-/**
- * TODO
- * 전역변수로 두지 말고, DB에서 가져오는 형태로 변경해야함 test
- */
-var tempGlobalID = "";
-var tempGlobalPW = "";
-var userInfoArray = {};
+var userInfoArray = {}; // user 정보를 담고있는 객체 
 /**
  * 최초 진입 부분 
  */
@@ -27,14 +21,9 @@ var init = function(){
 	
 	initLoginFunctions();
 	initSignupFunctions();
-	initContentsFunctions();
-	
-	$("#footerSearchMyInfo").click(function(){
-		console.log("click Find your ID/PW");
-	});
 	
 	$("#footerPrivacy").click(function(){
-		console.log("click privacy");
+		alert("click privacy. 필요 없으면 그냥 지웁시다.");
 	});
 	
 };
@@ -61,12 +50,12 @@ var initLoginFunctions = function(){
 	});
 	
 	var doLoginProcess = function(){
-		tempGlobalID = $("#loginBoxID").val();
-		tempGlobalPW = $("#loginBoxPW").val();
+		
+		$("#mainPageTransparentLayer").show();
 		
 		var data = {
-				"user_id": tempGlobalID,
-				"user_pw": tempGlobalPW
+				"user_id": $("#loginBoxID").val(),
+				"user_pw": $("#loginBoxPW").val()
 		};
 		
 		/**
@@ -80,9 +69,14 @@ var initLoginFunctions = function(){
 			success: function(response) {
 				if(response.result == 'success'){
 					console.log("login success");
+					setContentsLists();
+					
 					userInfoArray.address = response.address;
                     userInfoArray.email = response.email;
                     userInfoArray.phonenumber = response.phonenumber;
+                    userInfoArray.id = $("#loginBoxID").val();
+                    userInfoArray.pw = $("#loginBoxPW").val();
+                    
 					$("#headerSignUp").hide();
 					$("#headerLogOut").show();
 					$("#backgroundBlur").fadeOut(700, function() {});
@@ -99,7 +93,9 @@ var initLoginFunctions = function(){
 						$("#descriptionBox").hide();
 						$("#validPwBox").hide();
 						
-						$("#mainPageArea").fadeIn(300, function() {});
+						$("#mainPageArea").fadeIn(300, function() {
+							$("#mainPageTransparentLayer").hide();
+						});
 					});
 					
 				} else {
@@ -123,8 +119,7 @@ var initLoginFunctions = function(){
 	
 	$("#headerLogOut").click(function(){
 		/**
-		 * TODO
-		 * login session 끊어주는 작업 필요 
+		 * login session 끊어줌  
 		 */
 		
 		if($("#loginBoxKeepLoginCheckImg").attr("class") == "loginCheckImgUnchecked"){
@@ -141,6 +136,7 @@ var initLoginFunctions = function(){
                 $("#headerSignUp").show();
                 $("#mainPageTransparentLayer").hide();
                 $("#validPwBox").hide();
+                $("#contentsPurchasePopup").hide();
                 $("#backgroundBlur").fadeIn(300, function() {});
                 $("#mainPageArea").fadeOut(300, function() {
                     $("#loginBox").fadeIn(800, function() {});
@@ -269,22 +265,46 @@ var initSignupFunctions = function(){
 	});
 };
 
-var currentTabPage = "mainPageContentsMyLibrary"; // 처음 로그인 시 My Library 탭에 포커싱 되므로 My Library 로 초기화 
-
+var myLibraryList = {};
+var contentsList = {};
 /**
- * contents 및 my library 부분에서 필요한 함수들 초기화 
+ * 서버에서 contents 항목 받아오는 부분  
  */
-var initContentsFunctions = function(){
+var setContentsLists = function(){
 	
-	/**
-	 * TODO
-	 * 서버에서 contents 항목 받아오는 부분 필요 
-	 */
-	var contentsList = {};
+	$.ajax({
+		type: "GET",
+		dataType: "json",
+		url: "php/get_buy_contents.php", //Relative or absolute path to response.php file
+		success: function(response) {
+			myLibraryList = response;
+			
+			$("#mainPageContentsMyLibrary").empty();
+			$.each(myLibraryList, function(i, v){
+		        
+				var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":v.thumbnail}); //content image
+		        var title = $("<div/>", {"class": "mainPageContentsItemTitle"}).text(v.contentName); //content title
 
-	/**
-	 * contents 내용 서버에서 받아오기  
-	 */
+		        var item = $("<div/>", {"class": "mainPageContentsItems", "id":"contents_my_library_"+i});
+		        item.append(icon);
+		        item.append(title);
+		        
+		        /**
+		         * TODO
+		         * 이곳의 item 은 구매한 contents 항목들임.
+		         * 클릭 시 플레이 가능하게 처리 필요 
+		         */
+		        
+		        $("#mainPageContentsMyLibrary").append(item);
+		    });
+			
+			initContentsFunctions(); //My Library list 가 모두 받아지고 나서 필요 함수들 초기화 
+		},
+		error: function(response){
+			console.log("get buy contents error");
+		}
+	});
+	
 	$.ajax({
 		type: "GET",
 		dataType: "json",
@@ -297,6 +317,14 @@ var initContentsFunctions = function(){
 		}
 	});
 	
+};
+
+var currentTabPage = "mainPageContentsMyLibrary"; // 처음 로그인 시 My Library 탭에 포커싱 되므로 My Library 로 초기화 
+
+/**
+ * contents 및 my library 부분에서 필요한 함수들 초기화 
+ */
+var initContentsFunctions = function(){
 	
 	/**
 	 * 상단 탭 버튼 누를 시 div 교체 
@@ -316,18 +344,21 @@ var initContentsFunctions = function(){
 			$("#descriptionBox").hide();
 			$("#validPwBox").hide();
 			
-			
-			
 			$("#mainPageContentsMyLibrary").empty();
-			$.each(contentsList, function(i, v){
+			$.each(myLibraryList, function(i, v){
 		        
-//		        var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":"../media/img_game_logo1.png"}); //content image
 				var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":v.thumbnail}); //content image
-		        var title = $("<div/>", {"class": "mainPageContentsItemTitle"}).text(v.contents); //content title
+		        var title = $("<div/>", {"class": "mainPageContentsItemTitle"}).text(v.contentName); //content title
 
 		        var item = $("<div/>", {"class": "mainPageContentsItems", "id":"contents_my_library_"+i});
 		        item.append(icon);
 		        item.append(title);
+		        
+		        /**
+		         * TODO
+		         * 이곳의 item 은 구매한 contents 항목들임.
+		         * 클릭 시 플레이 가능하게 처리 필요 
+		         */
 		        
 		        $("#mainPageContentsMyLibrary").append(item);
 		    });
@@ -345,13 +376,11 @@ var initContentsFunctions = function(){
 			$("#descriptionBox").hide();
 			$("#validPwBox").hide();
 			
-			
-			
 			$("#mainPageContentsStore").empty();
 			$.each(contentsList, function(i, v){
 		        
-		        var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":"../media/img_game_logo1.png"}); //content image
-		        var title = $("<div/>", {"class": "mainPageContentsItemTitle"}); //content title
+		        var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":v.thumbnail}); //content image
+		        var title = $("<div/>", {"class": "mainPageContentsItemTitle"}).text(v.contentName); //content title
 
 		        var item = $("<div/>", {"class": "mainPageContentsItems", "id":"contents_my_library_"+i});
 		        item.append(icon);
@@ -359,7 +388,6 @@ var initContentsFunctions = function(){
 		        
 		        item.click(function(){
 		        	/**
-		        	 * TODO
 		        	 * 아이템 구매 세부 창 띄워줌 
 		        	 */
 		        	contentsBuyShow(v);
@@ -390,15 +418,6 @@ var initContentsFunctions = function(){
 		
 	});
 	
-	/**
-	 * 콘텐츠 클릭 시 이벤트 
-	 */
-	$(".mainPageContentsItems").click(function(){
-		var item = $(this);
-		console.log(item.children()[1].textContent + " clicked.");
-	});
-	
-
 	userSettingsInit();
 	contentsSearchInit();
 	hardwarePurchaseInit();
@@ -409,19 +428,26 @@ var initContentsFunctions = function(){
  */
 var contentsBuyShow = function(item){
 	
+	$("#mainPageTransparentLayer").show();
+	
 	$("#contentsPurchasePopupClose").unbind("click");
 	$("#contentsPurchasePopupClose").click(function(){
 		$("#contentsPurchasePopup").hide();
+		$("#mainPageTransparentLayer").hide();
 	});
 	
-	$("#contentsPurchasePopupIcon").attr("src", "../media/img_game_logo1.png");
+	$("#contentsPurchasePopupIcon").attr("src", item.thumbnail);
 	$("#contentsPurchasePopupTitle").text(item.contentName);
-	$("#contentsPurchasePopupPrice").text(item.price);
+	$("#contentsPurchasePopupPrice").text(item.price + " Won").digits();
 	$("#contentsPurchasePopupDesc").text(item.description);
 	
 	$("#contentsPurchasePopupBuyBtn").unbind("click");
 	$("#contentsPurchasePopupBuyBtn").click(function(){
 		
+		/**
+		 * TODO
+		 * paymentBox html 위치 조정 필요 
+		 */
 		$("#paymentInfoEmail").val(userInfoArray.email);
 		$("#paymentInfoAddress").val(userInfoArray.address);
 		$("#paymentInfoPhoneNum").val(userInfoArray.phonenumber);
@@ -469,10 +495,10 @@ var userSettingsInit = function(){
     var doValidatePasswordProcess = function(){
   
     	var validPw = $("#validPWBoxPassword").val();
-        if(tempGlobalPW == validPw) {
+        if(userInfoArray.pw == validPw) {
         	
         	$("#mainPageTransparentLayer").show();
-            $("#settingBoxID").val(tempGlobalID);
+            $("#settingBoxID").val(userInfoArray.id);
             $("#validPwBox").hide();
             
             $("#infoSettingBoxCloseBtn").unbind("click");
@@ -553,7 +579,7 @@ var userSettingsInit = function(){
     });
     
     var initializeSettingTextBox = function(){
-    	$("#settingBoxID").val(tempGlobalID);
+    	$("#settingBoxID").val(userInfoArray.id);
     	$("#settingBoxPW").val("");
     	$("#settingBoxPWCheck").val("");
     	$("#settingBoxAddress").val(userInfoArray.address);
@@ -709,4 +735,11 @@ var contentsSearchInit = function(){
 	searchBox.removeEventListener("search", onSearchHandler, false);
 	searchBox.addEventListener("search", onSearchHandler, false);
 	
+};
+
+//세 자리마다 comma 추가
+$.fn.digits = function(){ 
+	return this.each(function(){ 
+		$(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") ); 
+	});
 };
