@@ -270,18 +270,12 @@ var initContentsFunctions = function(){
 	$.ajax({
 		type: "GET",
 		dataType: "json",
-		url: "php/contentsinfo.php", //Relative or absolute path to response.php file
+		url: "php/get_all_contents.php", //Relative or absolute path to response.php file
 		success: function(response) {
-			if(response.result == 'success'){
-				alert("signup success");
-				$("#signupBox").hide();
-				$("#loginBox").fadeIn(500);
-			} else {
-				alert("signup fail");
-			}
+			contentsList = response;
 		},
 		error: function(response){
-			console.log("signup error");
+			console.log("get contents error");
 		}
 	});
 	
@@ -307,7 +301,7 @@ var initContentsFunctions = function(){
 			
 			
 			$("#mainPageContentsMyLibrary").empty();
-			$.each(contentsList["MyLibrary"], function(i, v){
+			$.each(contentsList, function(i, v){
 		        
 //		        var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":"../media/img_game_logo1.png"}); //content image
 				var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":v.thumbnail}); //content image
@@ -336,7 +330,7 @@ var initContentsFunctions = function(){
 			
 			
 			$("#mainPageContentsStore").empty();
-			$.each(contentsList["Store"], function(i, v){
+			$.each(contentsList, function(i, v){
 		        
 		        var icon = $("<img/>", {"class":"mainPageContentsItemIcon", "src":"../media/img_game_logo1.png"}); //content image
 		        var title = $("<div/>", {"class": "mainPageContentsItemTitle"}); //content title
@@ -403,7 +397,7 @@ var contentsBuyShow = function(item){
 	});
 	
 	$("#contentsPurchasePopupIcon").attr("src", "../media/img_game_logo1.png");
-	$("#contentsPurchasePopupTitle").text(item.contents);
+	$("#contentsPurchasePopupTitle").text(item.contentName);
 	$("#contentsPurchasePopupPrice").text(item.price);
 	$("#contentsPurchasePopupDesc").text(item.description);
 	
@@ -610,36 +604,36 @@ var hardwarePurchaseInit = function(){
 			$("#descriptionBox").fadeIn(1000,function(){});
 		});
 	});
-	
+
 	$("#payCheckOutBtn").click(function(){
-		
+
 		var paymentInfoEmail = $("#paymentInfoEmail").val();
 		var paymentInfoAddress = $("#paymentInfoAddress").val();
 		var paymentInfoPhoneNum = $("#paymentInfoPhoneNum").val();
 		var paymentInfoCardNum = $("#paymentInfoCardNum").val();
 		var paymentInfoCVC = $("#paymentInfoCVC").val();
-		
+
 		/**
 		 * TODO
-		 * payment 이력 테이블에 insert 
+		 * payment 이력 테이블에 insert
 		 */
-		
+
 		$("#backgroundBlur").fadeOut(1000, function() {});
 		$("#paymentBox").fadeOut(1000,function() {
 			currentTabPage = "mainPageContentsMyLibrary";
 			$("#mainPageSearchContainer").show();
-			
+
 			$("#mainPageContentsMyLibrary").show();
 			$("#mainPageContentsStore").hide();
 			$("#mainPageContentsHWPurchase").hide();
-			
+
 			$("#paymentBox").hide();
 			$("#descriptionBox").hide();
 			$("#validPwBox").hide();
-			
+
 			$("#mainPageArea").fadeIn(300, function() {});
 		});
-		
+
 	});
 };
 
