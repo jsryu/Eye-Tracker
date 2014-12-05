@@ -444,7 +444,11 @@ var contentsBuyShow = function(item){
 	
 	$("#contentsPurchasePopupIcon").attr("src", item.thumbnail);
 	$("#contentsPurchasePopupTitle").text(item.contentName);
-	$("#contentsPurchasePopupPrice").text(item.price + " Won").digits();
+	if(item.price == 0){
+		$("#contentsPurchasePopupPrice").text("Free").digits();
+	} else{
+		$("#contentsPurchasePopupPrice").text(item.price + " Won").digits();
+	}
 	$("#contentsPurchasePopupDesc").text(item.description);
 	
 	$("#contentsPurchasePopupBuyBtn").unbind("click");
