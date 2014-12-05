@@ -89,7 +89,7 @@ var initLoginFunctions = function(){
 						$("#mainPageContentsStore").hide();
 						$("#mainPageContentsHWPurchase").hide();
 						
-						$("#paymentBox").hide();
+						$("#paymentBoxArea").hide();
 						$("#descriptionBox").hide();
 						$("#validPwBox").hide();
 						
@@ -272,6 +272,9 @@ var contentsList = {};
  */
 var setContentsLists = function(){
 	
+	myLibraryList = {};
+	contentsList = {};
+	
 	$.ajax({
 		type: "GET",
 		dataType: "json",
@@ -340,7 +343,7 @@ var initContentsFunctions = function(){
 			$("#mainPageContentsStore").hide();
 			$("#mainPageContentsHWPurchase").hide();
 			
-			$("#paymentBox").hide();
+			$("#paymentBoxArea").hide();
 			$("#descriptionBox").hide();
 			$("#validPwBox").hide();
 			$("#mainPageTransparentLayer").hide();
@@ -373,7 +376,7 @@ var initContentsFunctions = function(){
 			$("#mainPageContentsStore").show();
 			$("#mainPageContentsHWPurchase").hide();
 			
-			$("#paymentBox").hide();
+			$("#paymentBoxArea").hide();
 			$("#descriptionBox").hide();
 			$("#validPwBox").hide();
 			$("#mainPageTransparentLayer").hide();
@@ -411,7 +414,7 @@ var initContentsFunctions = function(){
 			
 			$("#backgroundBlur").fadeIn(1000,function(){});
 			$("#descriptionBox").fadeIn(1000,function(){});
-			$("#paymentBox").hide();
+			$("#paymentBoxArea").hide();
 			$("#validPwBox").hide();
 			break;
 		}
@@ -441,7 +444,11 @@ var contentsBuyShow = function(item){
 	
 	$("#contentsPurchasePopupIcon").attr("src", item.thumbnail);
 	$("#contentsPurchasePopupTitle").text(item.contentName);
-	$("#contentsPurchasePopupPrice").text(item.price + " Won").digits();
+	if(item.price == 0){
+		$("#contentsPurchasePopupPrice").text("Free").digits();
+	} else{
+		$("#contentsPurchasePopupPrice").text(item.price + " Won").digits();
+	}
 	$("#contentsPurchasePopupDesc").text(item.description);
 	
 	$("#contentsPurchasePopupBuyBtn").unbind("click");
@@ -452,7 +459,7 @@ var contentsBuyShow = function(item){
 		$("#paymentInfoPhoneNum").val(userInfoArray.phonenumber);
 		$("#paymentInfoCardNum").val("");
 		$("#paymentInfoCVC").val("");
-		$("#paymentBox").css("top", "-440px").fadeIn(1000,function(){});
+		$("#paymentBoxArea").fadeIn(1000,function(){});
 		
 	});
 	
@@ -638,13 +645,13 @@ var hardwarePurchaseInit = function(){
 			$("#paymentInfoPhoneNum").val(userInfoArray.phonenumber);
 			$("#paymentInfoCardNum").val("");
 			$("#paymentInfoCVC").val("");
-			$("#paymentBox").css("top", 0).fadeIn(1000,function(){});
+			$("#paymentBoxArea").fadeIn(1000,function(){});
 		});
 	});
 
 	$("#paymentBoxCloseBtn").click(function(){
-		$("#contentsPurchasePopup").hide();
-		$("#paymentBox").fadeOut(0,function(){
+//		$("#contentsPurchasePopup").hide();
+		$("#paymentBoxArea").fadeOut(0,function(){
 			$("#descriptionBox").fadeIn(1000,function(){});
 		});
 	});
@@ -659,6 +666,7 @@ var hardwarePurchaseInit = function(){
         var data = {
             "purchaseType " : "hardware"        // hardware or contents
         };
+        
         $.ajax({
             type: "POST",
             dataType: "json",
@@ -678,6 +686,25 @@ var hardwarePurchaseInit = function(){
                      */
 
                     /////////////////////////////
+                	
+                	$("#backgroundBlur").fadeOut(1000, function() {});
+            		$("#paymentBoxArea").fadeOut(1000,function() {
+            			currentTabPage = "mainPageContentsMyLibrary";
+            			$("#mainPageSearchContainer").show();
+
+            			$("#mainPageContentsMyLibrary").show();
+            			$("#mainPageContentsStore").hide();
+            			$("#mainPageContentsHWPurchase").hide();
+            			$("#contentsPurchasePopup").hide();
+            			$("#mainPageTransparentLayer").hide();
+
+            			$("#paymentBoxArea").hide();
+            			$("#descriptionBox").hide();
+            			$("#validPwBox").hide();
+
+            			$("#mainPageArea").fadeIn(300, function() {});
+            		});
+            		
                 }else{
                     console.log("some thing wrong");
                 }
@@ -686,24 +713,6 @@ var hardwarePurchaseInit = function(){
                 console.log("why error..!!!!!");
             }
         });
-
-
-		$("#backgroundBlur").fadeOut(1000, function() {});
-		$("#paymentBox").fadeOut(1000,function() {
-			currentTabPage = "mainPageContentsMyLibrary";
-			$("#mainPageSearchContainer").show();
-
-			$("#mainPageContentsMyLibrary").show();
-			$("#mainPageContentsStore").hide();
-			$("#mainPageContentsHWPurchase").hide();
-			$("#mainPageTransparentLayer").hide();
-
-			$("#paymentBox").hide();
-			$("#descriptionBox").hide();
-			$("#validPwBox").hide();
-
-			$("#mainPageArea").fadeIn(300, function() {});
-		});
 
 	});
 };
