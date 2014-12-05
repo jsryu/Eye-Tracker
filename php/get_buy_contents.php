@@ -8,7 +8,12 @@
 	$result=$mysqli->query($query);
 
 	while($row=$result->fetch_array(MYSQLI_ASSOC)){
-		$cid=$row["cid"];
+
+		if($row["cid"]!='1')
+			$cid=$row["cid"];
+		else
+			continue;
+		
 		$q = "SELECT * FROM contents WHERE cid='$cid'";
 		$res = $mysqli->query($q);
 		$contents_row=$res->fetch_array(MYSQLI_ASSOC);
