@@ -459,7 +459,56 @@ var contentsBuyShow = function(item){
 		$("#paymentInfoPhoneNum").val(userInfoArray.phonenumber);
 		$("#paymentInfoCardNum").val("");
 		$("#paymentInfoCVC").val("");
-		$("#paymentBoxArea").fadeIn(1000,function(){});
+		$("#paymentBoxArea").fadeIn(1000,function(){
+            $("#payCheckOutBtn").click(function(){
+                var paymentInfoEmail = $("#paymentInfoEmail").val();
+                var paymentInfoAddress = $("#paymentInfoAddress").val();
+                var paymentInfoPhoneNum = $("#paymentInfoPhoneNum").val();
+                var paymentInfoCardNum = $("#paymentInfoCardNum").val();
+                var paymentInfoCVC = $("#paymentInfoCVC").val();
+                var data = {
+                    "purchaseType": "contents",        // hardware or contents
+                    "contents": item.cid
+                };
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "./php/insert_buyTable.php",
+                    data: data,
+                    success: function(response) {
+                        console.log(response.result);
+                        if(response.result == 'success'){
+                            setContentsLists();
+                            $("#backgroundBlur").fadeOut(1000, function() {});
+                            $("#paymentBoxArea").fadeOut(1000,function() {
+                                currentTabPage = "mainPageContentsMyLibrary";
+                                $("#mainPageSearchContainer").show();
+
+                                $("#mainPageContentsMyLibrary").show();
+                                $("#mainPageContentsStore").hide();
+                                $("#mainPageContentsHWPurchase").hide();
+                                $("#contentsPurchasePopup").hide();
+                                $("#mainPageTransparentLayer").hide();
+
+                                $("#paymentBoxArea").hide();
+                                $("#descriptionBox").hide();
+                                $("#validPwBox").hide();
+
+                                $("#mainPageArea").fadeIn(300, function() {});
+                            });
+
+                        }else{
+                            console.log("some thing wrong");
+                        }
+                    },
+                    error: function(request,error) {
+                        console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                    }
+                });
+
+
+            });
+        });
 		
 	});
 	
@@ -664,7 +713,7 @@ var hardwarePurchaseInit = function(){
 		var paymentInfoCardNum = $("#paymentInfoCardNum").val();
 		var paymentInfoCVC = $("#paymentInfoCVC").val();
         var data = {
-            "purchaseType " : "hardware"        // hardware or contents
+            "purchaseType": "hardware"        // hardware or contents
         };
         
         $.ajax({
@@ -675,18 +724,7 @@ var hardwarePurchaseInit = function(){
             success: function(response) {
                 console.log(response.result);
                 if(response.result == 'success'){
-
-
-                    ///////////////////////고칠부분!!!!
-
-                    //////////////////////
-                    /**
-                     * TODO
-                     * payment 이력 테이블에 insert
-                     */
-
-                    /////////////////////////////
-                	
+                    setContentsLists();
                 	$("#backgroundBlur").fadeOut(1000, function() {});
             		$("#paymentBoxArea").fadeOut(1000,function() {
             			currentTabPage = "mainPageContentsMyLibrary";
@@ -709,8 +747,8 @@ var hardwarePurchaseInit = function(){
                     console.log("some thing wrong");
                 }
             },
-            error: function(response) {
-                console.log("why error..!!!!!");
+            error: function(request,error) {
+                console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
             }
         });
 

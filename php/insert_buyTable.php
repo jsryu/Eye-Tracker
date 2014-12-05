@@ -24,7 +24,7 @@
 	}
 	else if($purchaseType =="contents")
 	{
-		$cid = $_POST['cid'];
+		$cid = $_POST['contents'];
 		$query = "INSERT INTO user_contents_info(uid,cid,isDownloaded) VALUES('$uid','$cid','0')";
 		$result = $mysqli->query($query);
 		if($result==TRUE)
