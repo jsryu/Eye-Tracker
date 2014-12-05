@@ -445,11 +445,13 @@ button:focus {
 	position: relative; float: right; font-size: 20px; margin: 3px 18px;
 }
 
+#paymentBoxArea{
+	position: absolute; width: 100%; height: 100%; z-index: 7; display: none;
+}
 #paymentBox{
-	position: relative; margin: 6% auto;
+	position: relative; margin: 10% auto;
 	width: 430px; height: 460px; border-radius: 40px;
-	background-color: #FFFFFF; display: none;
-	z-index: 7; top: 0;
+	background-color: #8FD8D8;
 }
 #paymentBoxCloseBtn{
 	background: url(../media/btn_close_normal.png) no-repeat;
@@ -491,5 +493,5 @@ input.payinfo{
 
 #payCheckOutBtn{
 	font-size: 20px;
-	background-color: #8FD8D8;
+	background-color: #FFFFFF;
 }
