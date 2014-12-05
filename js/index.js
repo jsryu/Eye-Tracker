@@ -272,6 +272,9 @@ var contentsList = {};
  */
 var setContentsLists = function(){
 	
+	myLibraryList = {};
+	contentsList = {};
+	
 	$.ajax({
 		type: "GET",
 		dataType: "json",
