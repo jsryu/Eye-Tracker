@@ -5,7 +5,7 @@
  * Date: 14. 12. 4.
  * Time: 오후 3:17
  */
-
+	session_start();
 	include_once "dbconn.php";
 	$uid = $_SESSION['uid'];
 	$purchaseType = $_POST['purchaseType'];
