@@ -10,7 +10,7 @@
 
 	while($row=$result->fetch_array(MYSQLI_ASSOC)){
 
-		if($row["cid"]!='1')
+		if($row["cid"]!=1)
 			$cid=$row["cid"];
 		else
 			continue;

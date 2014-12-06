@@ -470,6 +470,16 @@ var contentsBuyShow = function(item){
                     "purchaseType": "contents",        // hardware or contents
                     "contents": item.cid
                 };
+                $.each(myLibraryList,function(i,v){
+                    if(item.cid == v.cid){
+                        data = {
+                            "purchaseType": "duplicate",
+                            "contents": item.cid
+                        };
+                        alert("이미 구매한 컨텐츠입니다!");
+                        return false;
+                    }
+                });
                 $.ajax({
                     type: "POST",
                     dataType: "json",
