@@ -451,76 +451,80 @@ var contentsBuyShow = function(item){
 	}
 	$("#contentsPurchasePopupDesc").text(item.description);
 	
-	$("#contentsPurchasePopupBuyBtn").unbind("click");
-	$("#contentsPurchasePopupBuyBtn").click(function(){
-		
-		$("#paymentInfoEmail").val(userInfoArray.email);
-		$("#paymentInfoAddress").val(userInfoArray.address);
-		$("#paymentInfoPhoneNum").val(userInfoArray.phonenumber);
-		$("#paymentInfoCardNum").val("");
-		$("#paymentInfoCVC").val("");
-		$("#paymentBoxArea").fadeIn(1000,function(){
-            $("#payCheckOutBtn").click(function(){
-                var paymentInfoEmail = $("#paymentInfoEmail").val();
-                var paymentInfoAddress = $("#paymentInfoAddress").val();
-                var paymentInfoPhoneNum = $("#paymentInfoPhoneNum").val();
-                var paymentInfoCardNum = $("#paymentInfoCardNum").val();
-                var paymentInfoCVC = $("#paymentInfoCVC").val();
-                var data = {
-                    "purchaseType": "contents",        // hardware or contents
-                    "contents": item.cid
-                };
-                $.each(myLibraryList,function(i,v){
-                    if(item.cid == v.cid){
-                        data = {
-                            "purchaseType": "duplicate",
-                            "contents": item.cid
-                        };
-                        alert("이미 구매한 컨텐츠입니다!");
-                        return false;
-                    }
-                });
-                $.ajax({
-                    type: "POST",
-                    dataType: "json",
-                    url: "./php/insert_buyTable.php",
-                    data: data,
-                    success: function(response) {
-                        console.log(response.result);
-                        if(response.result == 'success'){
-                            setContentsLists();
-                            $("#backgroundBlur").fadeOut(1000, function() {});
-                            $("#paymentBoxArea").fadeOut(1000,function() {
-                                currentTabPage = "mainPageContentsMyLibrary";
-                                $("#mainPageSearchContainer").show();
+	var isAlreadyHave = false;
+	$.each(myLibraryList,function(i,v){
+        if(item.cid == v.cid){
+            isAlreadyHave = true;
+            return false;
+        }
+    });
+	
+	// 이미 구입한 컨텐츠는 buy button 을 보여주지 말자 
+	if(!isAlreadyHave){
+		$("#contentsPurchasePopupBuyBtn").show();
+		$("#contentsPurchasePopupBuyBtn").unbind("click");
+		$("#contentsPurchasePopupBuyBtn").click(function(){
+			
+			$("#paymentInfoEmail").val(userInfoArray.email);
+			$("#paymentInfoAddress").val(userInfoArray.address);
+			$("#paymentInfoPhoneNum").val(userInfoArray.phonenumber);
+			$("#paymentInfoCardNum").val("");
+			$("#paymentInfoCVC").val("");
+			$("#paymentBoxArea").fadeIn(1000,function(){
+	            $("#payCheckOutBtn").click(function(){
+	                var paymentInfoEmail = $("#paymentInfoEmail").val();
+	                var paymentInfoAddress = $("#paymentInfoAddress").val();
+	                var paymentInfoPhoneNum = $("#paymentInfoPhoneNum").val();
+	                var paymentInfoCardNum = $("#paymentInfoCardNum").val();
+	                var paymentInfoCVC = $("#paymentInfoCVC").val();
+	                var data = {
+	                    "purchaseType": "contents",        // hardware or contents
+	                    "contents": item.cid
+	                };
 
-                                $("#mainPageContentsMyLibrary").show();
-                                $("#mainPageContentsStore").hide();
-                                $("#mainPageContentsHWPurchase").hide();
-                                $("#contentsPurchasePopup").hide();
-                                $("#mainPageTransparentLayer").hide();
+	                $.ajax({
+	                    type: "POST",
+	                    dataType: "json",
+	                    url: "./php/insert_buyTable.php",
+	                    data: data,
+	                    success: function(response) {
+	                        console.log(response.result);
+	                        if(response.result == 'success'){
+	                            setContentsLists();
+	                            $("#backgroundBlur").fadeOut(1000, function() {});
+	                            $("#paymentBoxArea").fadeOut(1000,function() {
+	                                currentTabPage = "mainPageContentsMyLibrary";
+	                                $("#mainPageSearchContainer").show();
 
-                                $("#paymentBoxArea").hide();
-                                $("#descriptionBox").hide();
-                                $("#validPwBox").hide();
+	                                $("#mainPageContentsMyLibrary").show();
+	                                $("#mainPageContentsStore").hide();
+	                                $("#mainPageContentsHWPurchase").hide();
+	                                $("#contentsPurchasePopup").hide();
+	                                $("#mainPageTransparentLayer").hide();
 
-                                $("#mainPageArea").fadeIn(300, function() {});
-                            });
+	                                $("#paymentBoxArea").hide();
+	                                $("#descriptionBox").hide();
+	                                $("#validPwBox").hide();
 
-                        }else{
-                            console.log("some thing wrong");
-                        }
-                    },
-                    error: function(request,error) {
-                        console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-                    }
-                });
+	                                $("#mainPageArea").fadeIn(300, function() {});
+	                            });
 
+	                        }else{
+	                            console.log("some thing wrong");
+	                        }
+	                    },
+	                    error: function(request,error) {
+	                        console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	                    }
+	                });
 
-            });
-        });
-		
-	});
+	            });
+	        });
+			
+		});
+	} else{
+		$("#contentsPurchasePopupBuyBtn").hide();
+	}
 	
 	$("#contentsPurchasePopup").show();
 };
