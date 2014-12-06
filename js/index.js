@@ -294,11 +294,13 @@ var setContentsLists = function(){
 		        item.append(icon);
 		        item.append(title);
 		        
-		        /**
-		         * TODO
-		         * 이곳의 item 은 구매한 contents 항목들임.
-		         * 클릭 시 플레이 가능하게 처리 필요 
-		         */
+		        item.click(function(){
+		        	/**
+			         * 이곳의 item 은 구매한 contents 항목들임.
+			         * 클릭 시 플레이 가능하게 처리  
+			         */
+		        	playContents(v);
+		        });
 		        
 		        $("#mainPageContentsMyLibrary").append(item);
 		    });
@@ -364,11 +366,13 @@ var initContentsFunctions = function(){
 		        item.append(icon);
 		        item.append(title);
 		        
-		        /**
-		         * TODO
-		         * 이곳의 item 은 구매한 contents 항목들임.
-		         * 클릭 시 플레이 가능하게 처리 필요 
-		         */
+		        item.click(function(){
+		        	/**
+			         * 이곳의 item 은 구매한 contents 항목들임.
+			         * 클릭 시 플레이 가능하게 처리  
+			         */
+		        	playContents(v);
+		        });
 		        
 		        $("#mainPageContentsMyLibrary").append(item);
 		    });
@@ -433,6 +437,18 @@ var initContentsFunctions = function(){
 	userSettingsInit();
 	contentsSearchInit();
 	hardwarePurchaseInit();
+};
+
+var playContents = function(item){
+	
+	switch(item.cid*1){
+	case 5: // Facebook
+	case 6: // Naver
+	case 7: // Band
+	case 8: // KakaoTalk
+		window.open(item.executeFile);
+		break;
+	}
 };
 
 /**
