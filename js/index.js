@@ -12,6 +12,8 @@
 // 1.0.3	Jaesung Ryu	2014/12/02	Add contents detail feature and DB feature etc.
 
 var userInfoArray = {}; // user 정보를 담고있는 객체 
+var isInitializeFinished = false;
+
 /**
  * 최초 진입 부분 
  */
@@ -301,7 +303,11 @@ var setContentsLists = function(){
 		        $("#mainPageContentsMyLibrary").append(item);
 		    });
 			
-			initContentsFunctions(); //My Library list 가 모두 받아지고 나서 필요 함수들 초기화 
+			if(!isInitializeFinished) {
+				initContentsFunctions(); //My Library list 가 모두 받아지고 나서 필요 함수들 초기화
+				isInitializeFinished = true;
+			}
+			 
 		},
 		error: function(response){
 			console.log("get buy contents error");
