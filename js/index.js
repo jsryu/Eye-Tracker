@@ -10,6 +10,7 @@
 // 1.0.1 	Jaesung Ryu 2014/11/05 	Add sign up/contents/log out feature etc.
 // 1.0.2	Jaesung Ryu 2014/11/16 	Add hardware purchase feature etc.
 // 1.0.3	Jaesung Ryu	2014/12/02	Add contents detail feature and DB feature etc.
+// 1.0.4	Jaesung Ryu	2014/12/07	Improve features and support.
 
 var userInfoArray = {}; // user 정보를 담고있는 객체 
 var isInitializeFinished = false;
@@ -23,10 +24,6 @@ var init = function(){
 	
 	initLoginFunctions();
 	initSignupFunctions();
-	
-	$("#footerPrivacy").click(function(){
-		alert("click privacy. 필요 없으면 그냥 지웁시다.");
-	});
 	
 };
 
@@ -51,6 +48,9 @@ var initLoginFunctions = function(){
 		doLoginProcess();
 	});
 	
+	/**
+	 * 서버와 login 통신 처리 
+	 */
 	var doLoginProcess = function(){
 		
 		$("#mainPageTransparentLayer").show();
@@ -61,7 +61,7 @@ var initLoginFunctions = function(){
 		};
 		
 		/**
-		 * Signup 서버에 요청 
+		 * login 서버에 요청 
 		 */
 		$.ajax({
 			type: "POST",
@@ -218,6 +218,9 @@ var initSignupFunctions = function(){
 		}
 	});
 	
+	/**
+	 * signup 버튼 클릭 이벤트 
+	 */
 	$("#signupBoxSubmit").click(function(){
 		
 		if(isIDCheckSuccess && isSignupPasswordMatch){
@@ -504,6 +507,9 @@ var initContentsFunctions = function(){
 	hardwarePurchaseInit();
 };
 
+/**
+ * 구매한 컨텐츠에 대한 동작 
+ */
 var playContents = function(item){
 		window.open(item.executeFile);
 };
@@ -697,7 +703,7 @@ var userSettingsInit = function(){
     $("#settingBoxConfirmBtn").click(function(){
     	
     	if(isSettingPasswordMatch){
-    		var settingBoxID = $("#settingBoxID").val();
+//    		var settingBoxID = $("#settingBoxID").val();
         	var settingBoxPW = $("#settingBoxPW").val();
         	var settingBoxAddress = $("#settingBoxAddress").val();
         	var settingBoxEmail = $("#settingBoxEmail").val();
