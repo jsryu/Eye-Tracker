@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: text/html; charset=utf-8');
   include "dbconn.php";
 
   $mysqli=new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);

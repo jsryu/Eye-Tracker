@@ -518,6 +518,7 @@ var contentsBuyShow = function(item){
 	                            $("#backgroundBlur").fadeOut(1000, function() {});
 	                            $("#paymentBoxArea").fadeOut(1000,function() {
 	                                currentTabPage = "mainPageContentsMyLibrary";
+                                    alert("Purchase success!");
 	                                $("#mainPageSearchContainer").show();
 
 	                                $("#mainPageContentsMyLibrary").show();
