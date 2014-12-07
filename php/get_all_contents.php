@@ -1,12 +1,18 @@
 <?php
+// Eye-Tracker Project Web Platform
+//
+// Author: Kyungmi Kim
+// Creation date: 2014/12/4
+//
+// © Team Confidence
+//
+// Modification history
+// Version  Modifier        Date        Change Reason
+// 1.0.1    Kyungmi Kim     2014/12/04  get information without hardware(eye-tracker)
+// 1.0.2    Kyeongpil Kang  2014/12/07  delete dublicated mysql connect
 	# get all contents information from server
 header('Content-Type: text/html; charset=utf-8');
   include "dbconn.php";
-
-  $mysqli=new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
-  if (mysqli_connect_error()) {
-    exit('Connect Error (' . mysqli_connect_errno() . ') '. mysqli_connect_error());
-  }
 
     $query = "SELECT * FROM contents";
     $result=$mysqli->query($query);

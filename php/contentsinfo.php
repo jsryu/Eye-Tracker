@@ -1,5 +1,10 @@
 <?php
-  
+  // Eye-Tracker Project Web Platform
+//
+// Author: Kyungmi Kim
+// Creation date: 2014/11/20
+//
+// © Team Confidence
   #connnect DB
 	# get contents information
   include "dbconn.php";
