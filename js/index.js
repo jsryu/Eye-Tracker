@@ -85,6 +85,10 @@ var initLoginFunctions = function(){
 					$("#loginBox").fadeOut(800, function() {  // login box fade out
 						
 						currentTabPage = "mainPageContentsMyLibrary";
+                        $("#mainPageHeaderMyLibrary").css({"font-weight": "bold", "color": "#045FB4"});
+                		$("#mainPageHeaderStore").css({"font-weight": "normal", "color": "#FFF"});
+                		$("#mainPageHeaderHWPurchase").css({"font-weight": "normal", "color": "#FFF"});
+						
 						$("#mainPageSearchContainer").show();
 						
 						$("#mainPageContentsMyLibrary").show();
