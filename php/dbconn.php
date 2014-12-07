@@ -1,4 +1,6 @@
-<?php header('Content-Type: text/html; charset=utf-8');
+<?php
+	# db connection php
+	header('Content-Type: text/html; charset=utf-8');
 
   define('DB_HOST', 'localhost');
   define('DB_NAME', 'moamoa');

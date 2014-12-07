@@ -1,4 +1,5 @@
 <?php
+	#get all information of contents which user bought.
 	session_start();
 
 	include "dbconn.php";

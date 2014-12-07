@@ -1,4 +1,5 @@
 <?php
+	# get all contents information from server
 header('Content-Type: text/html; charset=utf-8');
   include "dbconn.php";
 

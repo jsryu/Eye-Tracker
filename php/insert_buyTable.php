@@ -5,6 +5,7 @@
  * Date: 14. 12. 4.
  * Time: 오후 3:17
  */
+	# Inset rows into user_contents_info after user finishing purchase contents
 	session_start();
 	include_once "dbconn.php";
 	$uid = $_SESSION['uid'];

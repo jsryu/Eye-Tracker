@@ -1,5 +1,5 @@
 <?php
-  
+  #login and connect to database
   #connnect DB
   include_once "dbconn.php";
   #빈칸 없이 입력되었다는 가정 하에 진행

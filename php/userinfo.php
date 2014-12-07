@@ -1,5 +1,6 @@
 <?php
-  
+
+	# get all information of user from database
   session_start();
   include "dbconn.php";
   $uid=$_SESSION['uid'];

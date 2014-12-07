@@ -1,4 +1,5 @@
 <?php
+	#logout, destroy session
 /**
  * Created by PhpStorm.
  * User: Helianthus
