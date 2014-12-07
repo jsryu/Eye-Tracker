@@ -1,6 +1,7 @@
 <?php
   
   #connnect DB
+	# get contents information
   include "dbconn.php";
 
   $cid = $_POST['cid'];

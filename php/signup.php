@@ -1,4 +1,5 @@
 <?php
+	# after sign up, insert rows into user table
   include_once "dbconn.php";
   if (mysqli_connect_error()) {
     exit('Connect Error (' . mysqli_connect_errno() . ') '. mysqli_connect_error());

@@ -5,6 +5,19 @@
  * Date: 14. 12. 4.
  * Time: 오후 3:17
  */
+
+	# Inset rows into user_contents_info after user finishing purchase contents
+
+// Eye-Tracker Project Web Platform
+//
+// Author: KyeongPil Kang
+// Creation date: 2014/10/24
+//
+// © Team Confidence
+//
+// Modification history
+// Version 	Modifier    	Date 		Change Reason
+// 1.0.1 	KyeongPil Kang 2014/12/04 	change error code
 	session_start();
 	include_once "dbconn.php";
 	$uid = $_SESSION['uid'];
