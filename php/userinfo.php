@@ -1,5 +1,15 @@
 <?php
-
+// Eye-Tracker Project Web Platform
+//
+// Author: Kyungmi Kim
+// Creation date: 2014/11/20
+//
+// © Team Confidence
+//
+// Modification history
+// Version  Modifier        Date        Change Reason
+// 1.0.1    Kyeongpil Kang  2014/12/02  change value name intuitively
+// 1.0.2    Kyeongpil Kang  2014/12/07  fix update query
 	# get all information of user from database
   session_start();
   include "dbconn.php";

@@ -1,4 +1,15 @@
 <?php
+  // Eye-Tracker Project Web Platform
+//
+// Author: Kyungmi Kim
+// Creation date: 2014/11/18
+//
+// © Team Confidence
+//
+// Modification history
+// Version  Modifier        Date        Change Reason
+// 1.0.1    Kyungmi Kim     2014/12/19  fix error
+
 	# after sign up, insert rows into user table
   include_once "dbconn.php";
   if (mysqli_connect_error()) {
