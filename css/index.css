@@ -34,6 +34,7 @@ input[type="button"]::-moz-focus-inner {
 button {
 	border: none;
 	cursor: pointer;
+	font-family: 'Raleway', sans-serif;
 }
 button:focus {
 	outline: none;
@@ -188,15 +189,15 @@ button:focus {
 	width: 100%; height: 15px; font-size: 15px; left: 105px;
 }
 #signupBoxAddress{
-	position:relative; float: left; margin: 10px;
+	position: relative; float: left; margin: 10px;
 	width: 260px; height: 30px;
 }
 #signupBoxPhoneNumber{
-	position:relative; float: left; margin: 10px;
+	position: relative; float: left; margin: 10px;
 	width: 260px; height: 30px;
 }
 #signupBoxEmail{
-	position:relative; float: left; margin: 10px;
+	position: relative; float: left; margin: 10px;
 	width: 260px; height: 30px;
 }
 
@@ -229,15 +230,15 @@ button:focus {
 	background-color: #005790; opacity: 0.1;
 }
 #mainPageHeaderTap{
-	position: relative; float: left; width: 100%; height: 5%; z-index: 1;
+	position: relative; float: left; width: 100%; height: 5%; min-width: 1000px; z-index: 1;
 }
 .mainPageHeaders{
 	position: relative; float: left; width: 230px; padding: 10px 0; margin: 5px 15px;
-	font-size: 30px; font-weight: 600; color: #FFFFFF; cursor: pointer; text-align: center;
+	font-size: 30px; font-weight: 500; color: #FFFFFF; cursor: pointer; text-align: center;
 }
 #mainPageHeaderSettings{
 	position: relative; float: right; width: 160px; padding: 10px 0; margin: 5px 15px;
-	font-size: 30px; font-weight: 600; color: #FFFFFF; cursor: pointer; text-align: center;
+	font-size: 30px; font-weight: 500; color: #FFFFFF; cursor: pointer; text-align: center;
 }
 #mainPageContentsArea{
 	position: relative; float: left; width: 100%; height: 95%;
@@ -253,8 +254,11 @@ button:focus {
 	font-size: 15px; color: #000000; z-index: 1;
 	border: none; outline: none; border-radius: 10px; padding: 10px;
 }
+#mainPageHeaderMyLibrary{
+	font-weight: bold; color: #045FB4;
+}
 #mainPageContentsMyLibrary{
-	display: block; font-weight: bold; color: #045FB4;
+	display: block;
 }
 #mainPageContentsStore{
 	display: none;
@@ -307,7 +311,7 @@ button:focus {
 }
 .mainPageContentsItemTitle{
 	position: relative; float: left; width: 200px; height: 40px;
-	text-align: center; font-size: 27px; color: #FFFFFF;
+	text-align: center; font-size: 27px; color: #FFFFFF; font-weight: 500;
 }
 
 
@@ -441,7 +445,7 @@ button:focus {
 	width: 100%; height: 100%;
 }
 .hwDescSpans{
-	position: relative; float: left; margin: 5px; font-size: 25px; width: 95%;
+	position: relative; float: left; margin: 5px; font-size: 22px; width: 95%;
 }
 #hwPurchaseButton{
 	position: relative; float: right; font-size: 20px; margin: 3px 18px;
