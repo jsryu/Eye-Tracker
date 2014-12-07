@@ -436,7 +436,7 @@ var initContentsFunctions = function(){
 			$("#paymentBoxArea").hide();
 			$("#validPwBox").hide();
 			
-			$("#payCheckOutBtn").text("Check Out " + item.price + " Won").digits();
+			$("#payCheckOutBtn").text("Check Out 49,900 Won");
 			$("#payCheckOutBtn").unbind("click");
 			$("#payCheckOutBtn").click(function(){
 
@@ -455,7 +455,13 @@ var initContentsFunctions = function(){
 		                    setContentsLists();
 		                	$("#backgroundBlur").fadeOut(1000, function() {});
 		            		$("#paymentBoxArea").fadeOut(1000,function() {
-		            			currentTabPage = "mainPageContentsMyLibrary";
+		            			alert("Purchase success!");
+                                
+                                currentTabPage = "mainPageContentsMyLibrary";
+                                $("#mainPageHeaderMyLibrary").css({"font-weight": "bold", "color": "#045FB4"});
+                        		$("#mainPageHeaderStore").css({"font-weight": "normal", "color": "#FFF"});
+                        		$("#mainPageHeaderHWPurchase").css({"font-weight": "normal", "color": "#FFF"});
+                        		
 		            			$("#mainPageSearchContainer").show();
 
 		            			$("#mainPageContentsMyLibrary").show();
