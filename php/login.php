@@ -2,11 +2,6 @@
   
   #connnect DB
   include_once "dbconn.php";
-  $mysqli=new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
-  if (mysqli_connect_error()) {
-    exit('Connect Error (' . mysqli_connect_errno() . ') '. mysqli_connect_error());
-  }
-
   #빈칸 없이 입력되었다는 가정 하에 진행
   #user_id 라는 input과 user_pw라는 인풋을 받아옴
 
