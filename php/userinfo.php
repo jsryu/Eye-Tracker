@@ -21,7 +21,7 @@
     $return_arr['password']=$password;
     $return_arr['address']=$address;
     $return_arr['email']=$email;
-    $return_arr['phonenum']=$phonenum;
+    $return_arr['phonenumber']=$phonenum;
     $return_arr['info_result'] = 'select';
     echo json_encode($return_arr);
     
