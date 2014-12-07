@@ -1,5 +1,15 @@
 <?php
 	# db connection php
+// Eye-Tracker Project Web Platform
+//
+// Author: KyeongPil Kang
+// Creation date: 2014/10/24
+//
+// © Team Confidence
+//
+// Modification history
+// Version 	Modifier    	Date 		Change Reason
+// 1.0.1 	KyeongPil Kang 2014/11/05 	Add header line
 	header('Content-Type: text/html; charset=utf-8');
 
   define('DB_HOST', 'localhost');
