@@ -419,7 +419,6 @@ var initContentsFunctions = function(){
 		        $("#mainPageContentsStore").append(item);
 		    });
 			
-			
 			break;
 		case "mainPageHeaderHWPurchase":
 			currentTabPage = "mainPageContentsHWPurchase";
@@ -436,6 +435,52 @@ var initContentsFunctions = function(){
 			$("#descriptionBox").fadeIn(1000,function(){});
 			$("#paymentBoxArea").hide();
 			$("#validPwBox").hide();
+			
+			$("#payCheckOutBtn").text("Check Out " + item.price + " Won").digits();
+			$("#payCheckOutBtn").unbind("click");
+			$("#payCheckOutBtn").click(function(){
+
+		        var data = {
+		            "purchaseType": "hardware"        // hardware or contents
+		        };
+		        
+		        $.ajax({
+		            type: "POST",
+		            dataType: "json",
+		            url: "./php/insert_buyTable.php",
+		            data: data,
+		            success: function(response) {
+		                console.log(response.result);
+		                if(response.result == 'success'){
+		                    setContentsLists();
+		                	$("#backgroundBlur").fadeOut(1000, function() {});
+		            		$("#paymentBoxArea").fadeOut(1000,function() {
+		            			currentTabPage = "mainPageContentsMyLibrary";
+		            			$("#mainPageSearchContainer").show();
+
+		            			$("#mainPageContentsMyLibrary").show();
+		            			$("#mainPageContentsStore").hide();
+		            			$("#mainPageContentsHWPurchase").hide();
+		            			$("#contentsPurchasePopup").hide();
+		            			$("#mainPageTransparentLayer").hide();
+
+		            			$("#paymentBoxArea").hide();
+		            			$("#descriptionBox").hide();
+		            			$("#validPwBox").hide();
+
+		            			$("#mainPageArea").fadeIn(300, function() {});
+		            		});
+		            		
+		                }else{
+		                    console.log("some thing wrong");
+		                }
+		            },
+		            error: function(request,error) {
+		                console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		            }
+		        });
+
+			});
 			break;
 		}
 		
@@ -513,8 +558,14 @@ var contentsBuyShow = function(item){
                             setContentsLists();
                             $("#backgroundBlur").fadeOut(1000, function() {});
                             $("#paymentBoxArea").fadeOut(1000,function() {
-                                currentTabPage = "mainPageContentsMyLibrary";
+                        		
                                 alert("Purchase success!");
+                                
+                                currentTabPage = "mainPageContentsMyLibrary";
+                                $("#mainPageHeaderMyLibrary").css({"font-weight": "bold", "color": "#045FB4"});
+                        		$("#mainPageHeaderStore").css({"font-weight": "normal", "color": "#FFF"});
+                        		$("#mainPageHeaderHWPurchase").css({"font-weight": "normal", "color": "#FFF"});
+                        		
                                 $("#mainPageSearchContainer").show();
 
                                 $("#mainPageContentsMyLibrary").show();
@@ -544,9 +595,10 @@ var contentsBuyShow = function(item){
 			if(item.price == 0){
 				insertCallback();
 			} else {
+				$("#payCheckOutBtn").text("Check Out " + item.price + " Won").digits();
 				$("#paymentBoxArea").fadeIn(1000,function(){
 					$("#payCheckOutBtn").unbind("click");
-		            $("#payCheckOutBtn").text("Check Out " + item.price + " Won").click(function(){
+		            $("#payCheckOutBtn").click(function(){
 		                insertCallback();
 		            });
 		        });
@@ -744,61 +796,11 @@ var hardwarePurchaseInit = function(){
 	});
 
 	$("#paymentBoxCloseBtn").click(function(){
-//		$("#contentsPurchasePopup").hide();
 		$("#paymentBoxArea").fadeOut(0,function(){
 			$("#descriptionBox").fadeIn(1000,function(){});
 		});
 	});
-
-	$("#payCheckOutBtn").unbind("click");
-	$("#payCheckOutBtn").text("Check Out " + item.price + " Won").click(function(){
-
-		var paymentInfoEmail = $("#paymentInfoEmail").val();
-		var paymentInfoAddress = $("#paymentInfoAddress").val();
-		var paymentInfoPhoneNum = $("#paymentInfoPhoneNum").val();
-		var paymentInfoCardNum = $("#paymentInfoCardNum").val();
-		var paymentInfoCVC = $("#paymentInfoCVC").val();
-        var data = {
-            "purchaseType": "hardware"        // hardware or contents
-        };
-        
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: "./php/insert_buyTable.php",
-            data: data,
-            success: function(response) {
-                console.log(response.result);
-                if(response.result == 'success'){
-                    setContentsLists();
-                	$("#backgroundBlur").fadeOut(1000, function() {});
-            		$("#paymentBoxArea").fadeOut(1000,function() {
-            			currentTabPage = "mainPageContentsMyLibrary";
-            			$("#mainPageSearchContainer").show();
-
-            			$("#mainPageContentsMyLibrary").show();
-            			$("#mainPageContentsStore").hide();
-            			$("#mainPageContentsHWPurchase").hide();
-            			$("#contentsPurchasePopup").hide();
-            			$("#mainPageTransparentLayer").hide();
-
-            			$("#paymentBoxArea").hide();
-            			$("#descriptionBox").hide();
-            			$("#validPwBox").hide();
-
-            			$("#mainPageArea").fadeIn(300, function() {});
-            		});
-            		
-                }else{
-                    console.log("some thing wrong");
-                }
-            },
-            error: function(request,error) {
-                console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-            }
-        });
-
-	});
+	
 };
 
 /**
