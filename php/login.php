@@ -1,4 +1,15 @@
 <?php
+ // Eye-Tracker Project Web Platform
+//
+// Author: Kyungmi Kim
+// Creation date: 2014/11/18
+//
+// © Team Confidence
+//
+// Modification history
+// Version  Modifier        Date        Change Reason
+// 1.0.1    Kyeongpil Kang  2014/12/4   add getting user information, fix db connect
+
   #login and connect to database
   #connnect DB
   include_once "dbconn.php";
