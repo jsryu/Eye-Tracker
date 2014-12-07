@@ -450,15 +450,7 @@ var initContentsFunctions = function(){
 };
 
 var playContents = function(item){
-	
-	switch(item.cid*1){
-	case 5: // Facebook
-	case 6: // Naver
-	case 7: // Band
-	case 8: // KakaoTalk
 		window.open(item.executeFile);
-		break;
-	}
 };
 
 /**
