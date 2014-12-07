@@ -492,7 +492,9 @@ var contentsBuyShow = function(item){
 			$("#paymentInfoPhoneNum").val(userInfoArray.phonenumber);
 			$("#paymentInfoCardNum").val("");
 			$("#paymentInfoCVC").val("");
+			
 			$("#paymentBoxArea").fadeIn(1000,function(){
+				$("#payCheckOutBtn").unbind("click");
 	            $("#payCheckOutBtn").click(function(){
 	                var paymentInfoEmail = $("#paymentInfoEmail").val();
 	                var paymentInfoAddress = $("#paymentInfoAddress").val();
@@ -741,6 +743,7 @@ var hardwarePurchaseInit = function(){
 		});
 	});
 
+	$("#payCheckOutBtn").unbind("click");
 	$("#payCheckOutBtn").click(function(){
 
 		var paymentInfoEmail = $("#paymentInfoEmail").val();
