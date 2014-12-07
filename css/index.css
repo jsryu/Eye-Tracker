@@ -173,15 +173,15 @@ button:focus {
 	width: 100%; height: 30px; margin: 10px 10px 35px;
 }
 #signupBoxID{
-	position relative; float: left; margin: 10px;
+	position: relative; float: left; margin: 10px;
 	width: 200px; height: 30px;
 }
 #signupBoxPW{
-	position relative; float: left; margin: 10px;
+	position: relative; float: left; margin: 10px;
 	width: 260px; height: 30px;
 }
 #signupBoxPWCheck{
-	position relative; float: left; margin: 10px;
+	position: relative; float: left; margin: 10px;
 	width: 260px; height: 30px;
 }
 #signupBoxPasswordCheckDesc{
@@ -189,15 +189,15 @@ button:focus {
 	width: 100%; height: 15px; font-size: 15px; left: 105px;
 }
 #signupBoxAddress{
-	position relative; float: left; margin: 10px;
+	position: relative; float: left; margin: 10px;
 	width: 260px; height: 30px;
 }
 #signupBoxPhoneNumber{
-	position relative; float: left; margin: 10px;
+	position: relative; float: left; margin: 10px;
 	width: 260px; height: 30px;
 }
 #signupBoxEmail{
-	position relative; float: left; margin: 10px;
+	position: relative; float: left; margin: 10px;
 	width: 260px; height: 30px;
 }
 
