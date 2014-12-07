@@ -342,9 +342,15 @@ var initContentsFunctions = function(){
 	 */
 	$(".mainPageHeaders").click(function(){
 		
+		$("#mainPageHeaderMyLibrary").css({"font-weight": "normal", "color": "#FFF"});
+		$("#mainPageHeaderStore").css({"font-weight": "normal", "color": "#FFF"});
+		$("#mainPageHeaderHWPurchase").css({"font-weight": "normal", "color": "#FFF"});
+		
 		switch($(this).attr("id")){
 		case "mainPageHeaderMyLibrary":
 			currentTabPage = "mainPageContentsMyLibrary";
+			$("#mainPageHeaderMyLibrary").css({"font-weight": "bold", "color": "#045FB4"});
+			
 			$("#mainPageSearchContainer").show();
 			
 			$("#mainPageContentsMyLibrary").show();
@@ -380,6 +386,8 @@ var initContentsFunctions = function(){
 			break;
 		case "mainPageHeaderStore":
 			currentTabPage = "mainPageContentsStore";
+			$("#mainPageHeaderStore").css({"font-weight": "bold", "color": "#045FB4"});
+			
 			$("#mainPageSearchContainer").show();
 			
 			$("#mainPageContentsMyLibrary").hide();
@@ -415,6 +423,8 @@ var initContentsFunctions = function(){
 			break;
 		case "mainPageHeaderHWPurchase":
 			currentTabPage = "mainPageContentsHWPurchase";
+			$("#mainPageHeaderHWPurchase").css({"font-weight": "bold", "color": "#045FB4"});
+			
 			$("#mainPageSearchContainer").hide();
 			
 			$("#mainPageContentsMyLibrary").hide();

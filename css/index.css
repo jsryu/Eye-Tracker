@@ -252,7 +252,7 @@ button:focus {
 	border: none; outline: none; border-radius: 10px; padding: 10px;
 }
 #mainPageContentsMyLibrary{
-	display: block;
+	display: block; font-weight: bold; color: #045FB4;
 }
 #mainPageContentsStore{
 	display: none;
