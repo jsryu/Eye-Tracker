@@ -697,7 +697,7 @@ var userSettingsInit = function(){
         	 * 유저 정보 테이블에 업데이트 
         	 */
         	 var data = {
-        	 	"type": "setinfo",
+        	 	"type": "setInfo",
         	 	"settingBoxPW": settingBoxPW,
         	 	"settingBoxAddress": settingBoxAddress,
         	 	"settingBoxEmail": settingBoxEmail,
@@ -707,7 +707,7 @@ var userSettingsInit = function(){
         	 $.ajax({
 				type: "POST",
 				dataType: "json",
-				url: "php/userinfo.php", //Relative or absolute path to response.php file
+				url: "php/userInfo.php", //Relative or absolute path to response.php file
 				data: data,
 				success: function(response) {
 					if(response.info_result == 'update'){

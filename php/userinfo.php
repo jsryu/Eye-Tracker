@@ -34,7 +34,7 @@
     $email = $_POST['settingBoxEmail']; 
     $phonenum = $_POST['settingBoxPhoneNum'];
     
-    $update_query = "UPDATE user SET pw='$password', email='$email'$phonenum',address='$address' WHERE uid='$uid'";
+    $update_query = "UPDATE user SET pw='$password', email='$email',phonenumber='$phonenum',address='$address' WHERE uid='$uid'";
 
     $mysqli->query($update_query);
     $return_arr['info_result'] = 'update';
